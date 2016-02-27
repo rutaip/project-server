@@ -25,8 +25,8 @@
             <div class="col-xs-12 col-sm-6 col-md-3 placeholder">
                 <h4>Projects by partner</h4>
                 <span class="text-muted">Something else</span>
-                <div class="well well-lg"> prueba de texto</div>
-                <div class="well well-lg"> prueba de texto</div>
+                <div class="well well-lg"> My closed projects</div>
+                <div class="well well-lg"> My closed pilots</div>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-3 placeholder">
                 <h4>Projects by partner</h4>
