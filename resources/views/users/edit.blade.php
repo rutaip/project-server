@@ -50,7 +50,7 @@
                             {!! Form::label('role', 'Role', ['class' => 'col-md-4 control-label']) !!}
 
                             <div class="col-md-6">
-                                {{ Form::select('role', $roles, null, ['class' => 'form-control', 'required' => 'required']) }}
+                                {{ Form::select('role', $roles, $user->role->name, ['class' => 'form-control', 'required' => 'required']) }}
                             </div>
                         </div>
 

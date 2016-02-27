@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Comment;
 use Illuminate\Http\Request;
 use App\Project;
 use Auth;
@@ -9,6 +10,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Gate;
 
 class DashboardsController extends Controller
 {
@@ -26,15 +28,32 @@ class DashboardsController extends Controller
         //$customers = Customer::latest()->get();
         $login= Auth::user();
 
-        $projects = Project::where('user_id', 'LIKE', '%'.$login->id.'%')
+
+        $project_owner='';
+
+        if  (Gate::denies('worldwide')) {
+
+            $project_owner=$login->id;
+        }
+
+
+
+        $projects = Project::where('user_id', 'LIKE', '%'.$project_owner.'%')
                             ->where('master_status', '=', 'Working' )
                             ->where('created_at', '>=', Carbon::now()->startOfYear())->count();
 
         $projectsbyregion = Project::join('regions', 'projects.region_id', '=', 'regions.id')
-                            ->select('projects.region_id', 'regions.region as region', 'regions.color as color', DB::raw('count(projects.id) as total'))
+                            ->select('projects.region_id', 'regions.region as label', 'regions.color as color', DB::raw('count(projects.id) as value'))
                             ->where('projects.created_at', '>=', Carbon::now()->startOfYear())
                             ->groupBy('region_id')
                             ->get();
+
+        $comments = Comment::join('projects', 'comments.project_id', '=', 'projects.id')
+                            ->select('projects.id', 'comments.comment_text', 'comments.created_at', 'comments.comment_owner', 'projects.project_name')
+                            ->where('projects.user_id', 'LIKE', '%'.$project_owner.'%')
+                            ->orderBy('comments.created_at', 'DESC')
+                            ->limit(10)
+                            ->paginate(2);
 
         $projectsbymonth = Project::select(DB::raw('count(id) as totalp'), DB::raw('MONTH(original_date) as month'), DB::raw('MONTHNAME(original_date) as monthname'))
             ->where('projects.created_at', '>=', Carbon::now()->startOfYear())
@@ -55,10 +74,7 @@ class DashboardsController extends Controller
             ->orderBy('month')
             ->get();
 
-        return view('dashboard.index', compact('projects', 'projectsbyregion', 'projectsbystatus'))
-            ->with('totals', $projectsbyregion->lists('total'))
-            ->with('colors', $projectsbyregion->lists('color'))
-            ->with('regions', $projectsbyregion->lists('region'))
+        return view('dashboard.index', compact('projects', 'projectsbyregion', 'projectsbystatus', 'comments'))
             ->with('months', $projectsbymonth->lists('monthname'))
             ->with('totalp', $projectsbymonth->lists('totalp'))
             ->with('pilot_monthname', $pilotsbymonth->lists('pilot_monthname'))

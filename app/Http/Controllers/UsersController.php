@@ -101,6 +101,10 @@ class UsersController extends Controller
 
         $user->update($request->all());
 
+        $user->roles()->detach();
+
+        $user->assignRole($request->role);
+
         return redirect('users');
     }
 

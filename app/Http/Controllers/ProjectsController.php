@@ -30,10 +30,20 @@ class ProjectsController extends Controller
 
         $login= Auth::user();
 
-        $projects = Project::where('user_id', 'LIKE', '%'.$login->id.'%')
+        $project_owner='';
+        $region_owner='';
+
+        if  (Gate::denies('worldwide')) {
+
+            $project_owner=$login->id;
+            $region_owner=$login->region_id;
+        }
+
+
+        $projects = Project::where('user_id', 'LIKE', '%'.$project_owner.'%')
             ->where('master_status', '=', 'Working' )
             ->where('created_at', '>=', Carbon::now()->startOfYear())
-                    ->orWhere('region_id', 'LIKE', '%'.$login->region_id.'%')->latest()->get();
+                    ->orWhere('region_id', 'LIKE', '%'.$region_owner.'%')->latest()->get();
 
 
         return view('projects.index', compact('projects'));
