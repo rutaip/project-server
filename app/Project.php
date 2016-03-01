@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Project extends Model
 {
+
     protected $fillable = [
         'project_name',
         'customer_id',
@@ -75,6 +76,11 @@ class Project extends Model
     public function comments()
     {
         return $this->hasMany(Comment::class, 'project_id', 'id')->orderBy('created_at', 'DESC');
+    }
+
+    public function pintegrations()
+    {
+        return $this->hasMany(Integration::class, 'project_id', 'id')->orderBy('created_at', 'DESC');
     }
 
     public function licenses()

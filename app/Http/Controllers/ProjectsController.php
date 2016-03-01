@@ -45,7 +45,6 @@ class ProjectsController extends Controller
             ->where('created_at', '>=', Carbon::now()->startOfYear())
                     ->orWhere('region_id', 'LIKE', '%'.$region_owner.'%')->latest()->get();
 
-
         return view('projects.index', compact('projects'));
     }
 

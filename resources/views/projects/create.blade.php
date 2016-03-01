@@ -11,31 +11,31 @@
     <table style="width:100%">
         <tr style="height: 50px;">
             <td align="center">{!! Form::label('project_name', 'Project Name') !!}</td>
-            <td>{!! Form::text('project_name', null, ['class' => 'form-control']) !!}</td>
+            <td>{!! Form::text('project_name', null, ['class' => 'form-control', 'required' => 'required']) !!}</td>
             <td align="center">{!! Form::label('customer_id', 'Customer') !!}</td>
-            <td>{!! Form::select('customer_id', $customer, old('customer_id'),['class' => 'form-control']) !!}</td>
+            <td>{!! Form::select('customer_id', $customer, old('customer_id'),['class' => 'form-control', 'required' => 'required']) !!}</td>
             <td align="center">{!! Form::label('partner_id', 'Implementation Partner') !!}</td>
-            <td>{!! Form::select('partner_id', $partner, old('partner_id'),['class' => 'form-control']) !!}</td>
+            <td>{!! Form::select('partner_id', $partner, old('partner_id'),['class' => 'form-control', 'required' => 'required']) !!}</td>
         </tr>
         <tr style="height: 50px;">
             <td align="center">{!! Form::label('support_partner_id', 'Support Partner') !!}</td>
-            <td>{!! Form::select('support_partner_id', $partner, old('support_partner_id'),['class' => 'form-control']) !!}</td>
+            <td>{!! Form::select('support_partner_id', $partner, old('support_partner_id'),['class' => 'form-control', 'required' => 'required']) !!}</td>
             <td align="center">{!! Form::label('region_id', 'Region') !!}</td>
-            <td>{!! Form::select('region_id', $region, old('region_id'),['class' => 'form-control']) !!}</td>
+            <td>{!! Form::select('region_id', $region, old('region_id'),['class' => 'form-control', 'required' => 'required']) !!}</td>
             <td align="center">{!! Form::label('pm_id', 'Presence PM') !!}</td>
-            <td>{!! Form::select('pm_id', $project_managers , old('pm_id'),['class' => 'form-control']) !!}</td>
+            <td>{!! Form::select('pm_id', $project_managers , old('pm_id'),['class' => 'form-control', 'required' => 'required']) !!}</td>
         </tr>
         <tr style="height: 50px;">
             <td align="center">{!! Form::label('acd_type_id', 'ACD Type') !!}</td>
-            <td>{!! Form::select('acd_type_id', array('1' => 'Avaya', '2' => 'Opengate'), null, ['class' => 'form-control']) !!}</td>
+            <td>{!! Form::select('acd_type_id', array('1' => 'Avaya', '2' => 'Opengate'), null, ['class' => 'form-control', 'required' => 'required']) !!}</td>
             <td align="center">{!! Form::label('project_type_id', 'Project Type') !!}</td>
-            <td>{!! Form::select('project_type_id', array('1' => 'Pilot', '2' => 'Project'), null, ['class' => 'form-control']) !!}</td>
+            <td>{!! Form::select('project_type_id', array('1' => 'Pilot', '2' => 'Project'), null, ['class' => 'form-control', 'required' => 'required']) !!}</td>
             <td align="center">{!! Form::label('integrations', 'Integrations') !!}</td>
-            <td>{!! Form::select('integrations', array('No' => 'No', 'Yes' => 'Yes'), null, ['class' => 'form-control']) !!}</td>
+            <td>{!! Form::select('integrations', array('No' => 'No', 'Yes' => 'Yes'), null, ['class' => 'form-control', 'required' => 'required']) !!}</td>
         </tr>
         <tr style="height: 50px;">
             <td align="center">{!! Form::label('pre_integrations', 'Presence Integrations') !!}</td>
-            <td>{!! Form::select('pre_integrations', array('No' => 'No', 'Yes' => 'Yes'), null, ['class' => 'form-control']) !!}</td>
+            <td>{!! Form::select('pre_integrations', array('No' => 'No', 'Yes' => 'Yes'), null, ['class' => 'form-control', 'required' => 'required']) !!}</td>
             <td align="center">{!! Form::label('status', 'Phase') !!}</td>
             <td>{!! Form::select('status', array('On_Time' => 'On Time', 'Delayed' => 'Delayed', 'Risk' => 'On Risk', 'Pending' => 'No Dates', 'Production' => 'Production', 'Pilot' => 'Pilot Started'), null, ['class' => 'form-control']) !!}</td>
             <td align="center">{!! Form::label('master_status', 'General Status') !!}</td>
@@ -76,8 +76,8 @@
         <tr style="height: 50px;">
             <td align="center">{!! Form::label('cost_project_mo', 'Cost Project MO') !!}</td>
             <td>{!! Form::text('cost_project_mo', null, ['class' => 'form-control']) !!}</td>
-            <td align="center">{!! Form::label('comments_id', 'Comments') !!}</td>
-            <td>{!! Form::select('comments_id', array('No' => 'No', 'Yes' => 'Yes'), null, ['class' => 'form-control']) !!}</td>
+            <td align="center"></td>
+            <td></td>
 
             <td>{!! Form::hidden('user_id', $login->id) !!}</td>
         </tr>

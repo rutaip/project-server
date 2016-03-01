@@ -14,6 +14,12 @@ class CreateIntegrationsTable extends Migration
     {
         Schema::create('integrations', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('project_id')->unsigned();
+            $table->string('name');
+            $table->text('information');
+            $table->string('developer');
+            $table->string('integration_owner');
+            $table->string('url');
             $table->timestamps();
         });
     }
