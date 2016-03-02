@@ -12,9 +12,22 @@ class RegionsTableSeeder extends Seeder
     public function run()
     {
 
-        DB::table('regions')->insert([
-            'region' => 'CALA',
-        ]);
+        $regions = array(
+            array('region' => 'CALA'),
+            array('region' => 'USA'),
+            array('region' => 'EMEA'),
+            array('region' => 'Mexico'),
+            array('region' => 'Brazil'),
+        );
+
+            DB::table('regions')->insert($regions);
+
+        $acds = array(
+            array('acd_type' => 'Avaya', 'version' => '9.2'),
+            array('acd_type' => 'Opengate', 'version' => '9.2' ),
+        );
+
+        DB::table('acds')->insert($acds);
 
 
         DB::table('roles')->insert([
