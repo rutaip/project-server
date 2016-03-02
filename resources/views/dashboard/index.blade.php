@@ -29,13 +29,13 @@
                 <div class="well well-lg"> My closed pilots <strong>{{ $closedpilots }}</strong></div>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-3 placeholder">
-                <h4>Projects by partner</h4>
-                <span class="text-muted">Something else</span>
+                <h4>Project Updates</h4>
+                <span class="text-muted">Dummy additional info</span>
 
                     <div class="well well-lg">
                         <div>
                             <h2 class="m-top-none value">0</h2>
-                            <h5>DID Net Additions (1 Total)</h5>
+                            <h5>Dummy additional info</h5>
 
                             <div class="value_change"><i class="fa fa-dot-circle-o fa-lg"></i><span class="m-left-xs">The same as previously</span></div>
 
@@ -74,11 +74,11 @@
                         My projects in progress
                     </li>
                     <li class="list-group-item">
-                        <span class="badge">14</span>
-                        Current tasks
+                        <span class="badge">0</span>
+                        My current tasks
                     </li>
                     <li class="list-group-item">
-                        <span class="badge">14</span>
+                        <span class="badge">0</span>
                         Professional Services Requirements
                     </li>
                 </ul>

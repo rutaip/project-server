@@ -14,4 +14,9 @@ class Integration extends Model
         'url',
         'integration_owner'
     ];
+
+    public function project()
+    {
+        return $this->hasOne(Project::class, 'id', 'project_id');
+    }
 }

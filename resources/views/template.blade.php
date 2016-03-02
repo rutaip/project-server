@@ -52,7 +52,7 @@
                         <li role="separator" class="divider"></li>
                         <li class="dropdown-header">Actions</li>
                         <li>{!! HTML::link('projects/create', 'New Project') !!}</li>
-                        <li><a href="#">Update Project</a></li>
+                        <li><a href="#">PS Requirement</a></li>
                     </ul>
                 </li>
                 <li><a href="#contact">Reports</a></li>
@@ -121,9 +121,13 @@
                     </li>
                 @endif
             </ul>
-            <form class="navbar-form navbar-right">
-                <input type="text" class="form-control" placeholder="Search...">
-            </form>
+
+                {!! Form::open(array('url' => 'search', 'id' => 'search', 'class' => 'navbar-form navbar-right')) !!}
+                {!! Form::text('search', null,
+                                       array('class'=>'form-control',
+                                            'placeholder'=>'Search...')) !!}
+                {!! Form::close() !!}
+
         </div>
     </div>
 </nav>

@@ -37,9 +37,10 @@ Route::group(['middleware' => 'web'], function () {
 
     Route::get('/', 'DashboardsController@index');
 
+    Route::post('search', 'SearchController@search');
     Route::resource('comments', 'CommentsController');
     Route::resource('tasks', 'TasksController');
-    Route::post('projects/search', 'ProjectsController@search');
+    Route::post('projects/filter', 'ProjectsController@search');
     Route::resource('projects', 'ProjectsController');
     Route::resource('regions', 'RegionsController');
     Route::resource('partners', 'PartnersController');

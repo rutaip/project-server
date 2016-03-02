@@ -9,6 +9,7 @@ use App\Customer;
 use Illuminate\Http\Request;
 use DB;
 use Gate;
+use Countries;
 
 class CustomersController extends Controller
 {
@@ -36,8 +37,9 @@ class CustomersController extends Controller
     public function create()
     {
         $region = DB::table('regions')->orderBy('id', 'asc')->lists('region','id');
+        $countries = Countries::lists('name', 'name');
 
-        return view('customers.create', compact('region'));
+        return view('customers.create', compact('region', 'countries'));
     }
 
     public function store(CustomerRequest $request)
@@ -55,10 +57,10 @@ class CustomersController extends Controller
     public function edit($id)
     {
         $customer = Customer::findOrFail($id);
-
+        $countries = Countries::lists('name', 'name');
         $region = DB::table('regions')->orderBy('id', 'asc')->lists('region','id');
 
-        return view('customers.edit', compact('customer', 'region'));
+        return view('customers.edit', compact('customer', 'region', 'countries'));
     }
 
     public function update(CustomerRequest $request, $id)

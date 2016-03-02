@@ -11,4 +11,9 @@ class Comment extends Model
         'comment_text',
         'project_id'
     ];
+
+    public function project()
+    {
+        return $this->hasOne(Project::class, 'id', 'project_id');
+    }
 }

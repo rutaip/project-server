@@ -9,6 +9,7 @@ use App\Partner;
 use Illuminate\Http\Request;
 use DB;
 use Gate;
+use Countries;
 
 class PartnersController extends Controller
 {
@@ -37,8 +38,9 @@ class PartnersController extends Controller
     public function create()
     {
         $region = DB::table('regions')->orderBy('id', 'asc')->lists('region','id');
+        $countries = Countries::lists('name', 'name');
 
-        return view('partners.create', compact('region'));
+        return view('partners.create', compact('region', 'countries'));
     }
 
     public function store(PartnerRequest $request)
@@ -57,10 +59,10 @@ class PartnersController extends Controller
     public function edit($id)
     {
         $partner = Partner::findOrFail($id);
-
+        $countries = Countries::lists('name', 'name');
         $region = DB::table('regions')->orderBy('id', 'asc')->lists('region','id');
 
-        return view('partners.edit', compact('partner', 'region'));
+        return view('partners.edit', compact('partner', 'region', 'countries'));
     }
 
     public function update(PartnerRequest $request, $id)

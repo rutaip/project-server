@@ -61,7 +61,9 @@
                     <td>{!! Html::image('images/grey.png', 'On Time', array( 'width' => 20, 'height' => 20 )) !!} {{$project->status}}</td>
                 @endif
 
-                <td style="text-align: center"><a href="{{ $project->id }}"> more.. </a></td>
+                <td style="text-align: center">
+                    {{ HTML::link('/projects/'.$project->id, 'more..')}}
+                </td>
             </tr>
 
         @endforeach
@@ -79,7 +81,7 @@
                     <h4 class="modal-title" id="myModalLabel">Select Options</h4>
                 </div>
                 <div class="modal-body">
-                    {!! Form::open(array('url' => 'projects/search', 'class' => 'form-horizontal')) !!}
+                    {!! Form::open(array('url' => 'projects/filter', 'class' => 'form-horizontal')) !!}
                     <div class="form-group">
                         {!! Form::label('region_id', 'Regions', ['class' => 'col-md-4 control-label']) !!}
                         <div class="col-md-6">

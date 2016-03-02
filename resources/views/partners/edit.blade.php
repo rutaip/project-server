@@ -26,7 +26,7 @@
                         </tr>
                         <tr style="height: 20px;">
                             <td align="center">{!! Form::label('partner_country', 'Partner Country') !!}</td>
-                            <td>{!! Form::text('partner_country', null, ['class' => 'form-control', 'required' => 'required']) !!}</td>
+                            <td>{!! Form::select('partner_country', $countries, null, ['class' => 'form-control', 'required' => 'required']) !!}</td>
                             <td align="center">{!! Form::label('color', 'Color') !!}</td>
                             <td>{!! Form::input('color', 'color',  null, array('class' => 'form-control', 'required' => 'required')) !!}</td>
 
