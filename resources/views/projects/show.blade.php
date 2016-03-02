@@ -66,7 +66,7 @@
             <div role="tabpanel" class="tab-pane fade" id="integrations">
                 @include('projects/integrations')
             </div>
-            <!-- fin pestaña integartions
+            <!-- fin pestaña integrations
 
             <!-- pestaña tareas-->
             <div role="tabpanel" class="tab-pane fade" id="tasks">

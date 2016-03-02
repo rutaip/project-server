@@ -89,7 +89,11 @@
                 <th>Name</th>
                 <th>Developer</th>
                 <th>Url</th>
-                <th>Post Editor</th>
+                <th>Post Editor
+                    @can('edit-project', $project)
+                    <a href="{{ url('integrations/' . $integration->id) . '/edit' }}" class="btn btn-primary btn-xs">edit</a>
+                    @endcan
+                </th>
 
             </tr> </thead>
             <tbody>

@@ -75,7 +75,7 @@ class IntegrationsController extends Controller
 
         $integration->update($request->all());
 
-        return redirect('integrations');
+        return redirect('projects/'. $request->project_id);
     }
 
 
