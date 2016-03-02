@@ -61,6 +61,17 @@ class DashboardsController extends Controller
             ->orderBy('month')
             ->get();
 
+        $closedpilots = Project::where('user_id', 'LIKE', '%'.$project_owner.'%')
+            ->where('master_status', '=', 'Finished' )
+            ->where('project_type_id', '=', '1')
+            ->where('created_at', '>=', Carbon::now()->startOfYear())->count();
+
+        $closedprojects = Project::where('user_id', 'LIKE', '%'.$project_owner.'%')
+            ->where('master_status', '=', 'Finished' )
+            ->where('project_type_id', '=', '2')
+            ->where('created_at', '>=', Carbon::now()->startOfYear())->count();
+
+
         $projectsbystatus = Project::select(DB::raw('count(id) as value'), 'status as label')
             ->where('projects.created_at', '>=', Carbon::now()->startOfYear())
             ->groupBy('status')
@@ -74,7 +85,7 @@ class DashboardsController extends Controller
             ->orderBy('month')
             ->get();
 
-        return view('dashboard.index', compact('projects', 'projectsbyregion', 'projectsbystatus', 'comments'))
+        return view('dashboard.index', compact('projects', 'projectsbyregion', 'projectsbystatus', 'comments', 'closedpilots', 'closedprojects'))
             ->with('months', $projectsbymonth->lists('monthname'))
             ->with('totalp', $projectsbymonth->lists('totalp'))
             ->with('pilot_monthname', $pilotsbymonth->lists('pilot_monthname'))

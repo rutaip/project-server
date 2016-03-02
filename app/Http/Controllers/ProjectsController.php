@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-//use Illuminate\Http\Request;
+use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Requests\ProjectRequest;
@@ -28,24 +28,24 @@ class ProjectsController extends Controller
     public function index()
     {
 
-        $login= Auth::user();
+        $auth_user=Auth::user();
 
-        $project_owner='';
-        $region_owner='';
+        $region = DB::table('regions')->orderBy('id', 'asc')->lists('region','id');
+
+
+        $projects = Project::where('master_status', '=', 'Working' )
+            ->where('created_at', '>=', Carbon::now()->startOfYear());
 
         if  (Gate::denies('worldwide')) {
 
-            $project_owner=$login->id;
-            $region_owner=$login->region_id;
+            $projects->where('user_id', 'LIKE', '%'.$auth_user->id.'%')
+                ->orWhere('region_id', 'LIKE', '%'.$auth_user->region_id.'%');
+
         }
 
+        $projects = $projects->latest()->get();
 
-        $projects = Project::where('user_id', 'LIKE', '%'.$project_owner.'%')
-            ->where('master_status', '=', 'Working' )
-            ->where('created_at', '>=', Carbon::now()->startOfYear())
-                    ->orWhere('region_id', 'LIKE', '%'.$region_owner.'%')->latest()->get();
-
-        return view('projects.index', compact('projects'));
+        return view('projects.index', compact('projects', 'region'));
     }
 
     public function show($id)
@@ -115,6 +115,39 @@ class ProjectsController extends Controller
         $project->update($request->all());
 
         return redirect('projects/'.$id);
+    }
+
+    public function search(Request $request)
+    {
+
+        $region = DB::table('regions')->orderBy('id', 'asc')->lists('region','id');
+
+
+        $projects = Project::where('created_at', '>=', Carbon::now()->startOfYear());
+
+
+        /*filters form*/
+
+        $projects->where(function($query) use ($request){
+
+            foreach ($request->region_id as $regions) {
+                $query->orWhere('region_id', 'LIKE', '%'.$regions.'%');
+            }
+
+        });
+
+        $projects->where(function($query) use ($request){
+
+            foreach ($request->master_status as $statuses){
+                $query->orWhere('master_status', 'LIKE', '%'.$statuses.'%');
+            }
+
+        });
+
+        $projects = $projects->latest()->get();
+        /* end filter query */
+
+        return view('projects.index', compact('projects', 'region'));
     }
 
 }

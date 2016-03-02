@@ -23,10 +23,10 @@
                 <hr>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-3 placeholder">
-                <h4>Projects by partner</h4>
-                <span class="text-muted">Something else</span>
-                <div class="well well-lg"> My closed projects</div>
-                <div class="well well-lg"> My closed pilots</div>
+                <h4>My closed activities {{ Carbon\Carbon::now()->year }}</h4>
+                <span class="text-muted">Projects & Pilots</span>
+                <div class="well well-lg"> My closed projects <strong>{{ $closedprojects }}</strong></div>
+                <div class="well well-lg"> My closed pilots <strong>{{ $closedpilots }}</strong></div>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-3 placeholder">
                 <h4>Projects by partner</h4>
