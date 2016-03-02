@@ -29,6 +29,24 @@ class RegionsTableSeeder extends Seeder
 
         DB::table('acds')->insert($acds);
 
+        $pms = array(
+            array('first' => 'Presence', 'last' => 'Technology', 'email' => 'project@presenceco.com', 'region_id' => '1'),
+        );
+
+        DB::table('pms')->insert($pms);
+
+        $partner = array(
+            array('partner_name' => 'Presence Technology', 'partner_country' => 'Global', 'region_id' => '1'),
+        );
+
+        DB::table('partners')->insert($partner);
+
+        $customer = array(
+            array('customer_name' => 'Presence Technology', 'email' => 'project@presenceco.com', 'country' => 'Mexico', 'region_id' => '1'),
+        );
+
+        DB::table('customers')->insert($customer);
+
 
         DB::table('roles')->insert([
             'name' => 'admin',
