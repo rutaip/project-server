@@ -31,6 +31,7 @@ class PermissionTableSeeder extends Seeder
             array('label' => 'Presence Modules', 'name' => 'modules'),      //15
             array('label' => 'View Comments', 'name' => 'comments'),        //16
             array('label' => 'Worldwide User', 'name' => 'worldwide'),        //17
+            array('label' => 'View Resources', 'name' => 'resources'),        //18
         );
         DB::table('permissions')->insert($permissions);
 
@@ -54,6 +55,7 @@ class PermissionTableSeeder extends Seeder
             array('permission_id' => '15', 'role_id' => '1'),
             array('permission_id' => '16', 'role_id' => '1'),
             array('permission_id' => '17', 'role_id' => '1'),
+            array('permission_id' => '18', 'role_id' => '1'),
         );
         DB::table('permission_role')->insert($permission_role);
     }

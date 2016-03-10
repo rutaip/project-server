@@ -75,6 +75,9 @@
                         @can('acds')
                         <li>{!! HTML::link('acds', 'ACDs') !!}</li>
                         @endcan
+                        @can('resources')
+                        <li>{!! HTML::link('resources', 'Resources') !!}</li>
+                        @endcan
                         @can('modules')
                         <li>{!! HTML::link('modules', 'Modules') !!}</li>
                         @endcan

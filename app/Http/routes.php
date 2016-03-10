@@ -53,6 +53,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::resource('roles', 'RolesController');
     Route::resource('modules', 'ModulesController');
     Route::resource('permissions', 'PermissionsController');
+    Route::resource('resources', 'ResourcesController');
     Route::resource('projectlicenses', 'ProjectLicensesController');
     Route::resource('integrations', 'IntegrationsController');
 
