@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use DB;
 
 class Project extends Model
 {
@@ -66,6 +67,11 @@ class Project extends Model
     public function acd_type()
     {
         return $this->hasOne(Acd::class, 'id', 'acd_type_id');
+    }
+
+    public function invoice()
+    {
+        return $this->hasOne(Invoice::class)->select('*', DB::raw('sum(january + february + march + april + may + june + july) as YDT') );
     }
 
     public function comments_count()
