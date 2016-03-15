@@ -212,17 +212,12 @@
 
     <div class="row">
         <div class="col-md-4">
-
         </div>
         <div class="col-md-4">
             {!! Form::submit('Submit', ['class' => 'btn btn-primary form-control']) !!}
         </div>
-
-
     </div>
-
     {!! Form::close() !!}
-
     <br>
 
 @stop
