@@ -69,7 +69,11 @@
                     <td>{{$project->invoice->december}}</td>
                     <th>{{$project->invoice->YDT}}</th>
                     <th>{{$project->invoice->YDT-$project->invoice->agreement}}</th>
-                    <th>{{(abs($project->invoice->YDT-$project->invoice->agreement)/$project->invoice->agreement)*100}} %</th>
+                    <th>
+                        @if ($project->invoice->agreement > 0)
+                            {{(abs($project->invoice->YDT-$project->invoice->agreement)/$project->invoice->agreement)*100}} %
+                        @endif
+                    </th>
                 </tr>
                 <tr>
                     <td>EUR</td>
@@ -88,7 +92,11 @@
                     <td>{{$project->invoice->december*$exchange}}</td>
                     <th>{{$project->invoice->YDT*$exchange}}</th>
                     <th>{{($project->invoice->YDT-$project->invoice->agreement)*$exchange}}</th>
-                    <th>{{(abs($project->invoice->YDT-$project->invoice->agreement)/$project->invoice->agreement)*100}} %</th>
+                    <th>
+                        @if ($project->invoice->agreement > 0)
+                            {{(abs($project->invoice->YDT-$project->invoice->agreement)/$project->invoice->agreement)*100}} %
+                        @endif
+                    </th>
                 </tr>
             </tbody>
 
@@ -136,7 +144,11 @@
                     <td>{{$project->invoice->december}}</td>
                     <th>{{$project->invoice->YDT}}</th>
                     <th>{{$project->invoice->YDT-$project->invoice->agreement}}</th>
-                    <th>{{(abs($project->invoice->YDT-$project->invoice->agreement)/$project->invoice->agreement)*100}} %</th>
+                    <th>
+                        @if ($project->invoice->agreement > 0)
+                            {{(abs($project->invoice->YDT-$project->invoice->agreement)/$project->invoice->agreement)*100}} %
+                        @endif
+                    </th>
                 </tr>
 
             </tbody>

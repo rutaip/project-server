@@ -10,11 +10,8 @@
 
     </div>
     <div class="col-md-6">
-        <div class="col-md-4">
-
-        </div>
-        <div class="col-md-4">
-
+        <div class="col-md-8">
+            <h4>{{ Html::link($project->pl_link, 'P&L File link') }}</h4>
         </div>
         <div class="col-md-4">
             <button class="btn btn-default btn-block" type="button">

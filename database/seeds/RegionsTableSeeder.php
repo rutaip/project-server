@@ -16,8 +16,6 @@ class RegionsTableSeeder extends Seeder
             array('region' => 'CALA'),
             array('region' => 'USA'),
             array('region' => 'EMEA'),
-            array('region' => 'Mexico'),
-            array('region' => 'Brazil'),
         );
 
             DB::table('regions')->insert($regions);

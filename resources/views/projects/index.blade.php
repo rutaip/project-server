@@ -26,21 +26,22 @@
                 <th>Imp. Partner</th>
                 <th>Support Partner</th>
                 <th>Region</th>
+                <th>Country</th>
                 <th>Project Manager</th>
                 <th>ACD Type</th>
                 <th>Status </th>
-                <th>Details</th>
             </tr>
         </thead>
         <tbody>
 
         @foreach($projects as $project)
             <tr>
-                <th>{{$project->project_name}}</th>
+                <th>{{ Html::link('/projects/'.$project->id, $project->project_name)}}</th>
                 <td>{{$project->customer->customer_name}}</td>
                 <td>{{$project->partner->partner_name}}</td>
                 <td>{{$project->support_partner->partner_name}}</td>
                 <td>{{$project->region->region}}</td>
+                <td>{{$project->country}}</td>
                 <td>{{$project->pm->first}} {{$project->pm->last}}</td>
                 <td>{{$project->acd_type->acd_type}}</td>
 
@@ -60,10 +61,6 @@
                 @else
                     <td>{!! Html::image('images/grey.png', 'On Time', array( 'width' => 20, 'height' => 20 )) !!} {{$project->status}}</td>
                 @endif
-
-                <td style="text-align: center">
-                    {{ HTML::link('/projects/'.$project->id, 'more..')}}
-                </td>
             </tr>
 
         @endforeach

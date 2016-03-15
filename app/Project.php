@@ -15,6 +15,7 @@ class Project extends Model
         'support_partner_id',
         'pm_id',
         'region_id',
+        'country',
         'acd_type_id',
         'project_type_id',
         'integrations',
@@ -35,6 +36,12 @@ class Project extends Model
         'not_expenses_reported_usd',
         'cost_project_mo',
         'completed',
+        'description',
+        'campaign',
+        'gdrive_link',
+        'crm_link',
+        'pl_link',
+        'imp_type',
         'user_id',
         'color'
     ];

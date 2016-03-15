@@ -1,19 +1,23 @@
 <br>
 <div class="row">
     <div class="col-md-6">
-        <div class="col-md-6">
-            <h4>General Status = {{$project->master_status}}</h4>
+        <div class="col-md-4">
+            <h5>General Status = {{$project->master_status}}</h5>
         </div>
-        <div class="col-md-6">
-            <h4>Type =
+        <div class="col-md-4">
+            <h5>Type =
                 @if ($project->project_type_id == 1)
                     Pilot
                 @else
                     Project
                 @endif
-            </h4>
+            </h5>
         </div>
-
+        <div class="col-md-4">
+            <h5>
+                Implementation Type = {{$project->imp_type }}
+            </h5>
+        </div>
     </div>
     <div class="col-md-6">
         <div class="col-md-4">
@@ -34,6 +38,22 @@
 </div>
 
 <hr>
+
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-bordered">
+            <caption>Project Description</caption>
+            <thead>
+                <tr>
+                    <td>{{$project->description}}</td>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+
+</div>
 
 <div class="row">
     <div class="col-md-6">
@@ -68,8 +88,8 @@
                 <td>{{$project->customer->customer_name}}</td>
             </tr>
             <tr>
-                <th scope=row>Region</th>
-                <td>{{$project->region->region}}</td>
+                <th scope=row>Region / Country</th>
+                <td>{{$project->region->region}} / {{$project->country}}</td>
             </tr>
             <tr>
                 <th scope=row>Presence PM</th>

@@ -19,6 +19,7 @@ class CreateProjectsTable extends Migration
             $table->integer('partner_id')->unsigned();
             $table->integer('support_partner_id')->unsigned();
             $table->integer('region_id')->unsigned();
+            $table->string('country');
             $table->integer('pm_id')->unsigned();
             $table->integer('acd_type_id')->unsigned();
             $table->integer('project_type_id');
@@ -26,9 +27,9 @@ class CreateProjectsTable extends Migration
             $table->enum('pre_integrations', ['Yes', 'No']);
             $table->string('status');
             $table->string('master_status');
-            $table->timestamp('original_date');
-            $table->timestamp('expected_date');
-            $table->timestamp('delivery_date');
+            $table->date('original_date');
+            $table->date('expected_date');
+            $table->date('delivery_date');
             $table->integer('days_contracted');
             $table->integer('days_spent');
             $table->integer('amount_eur');
@@ -42,6 +43,12 @@ class CreateProjectsTable extends Migration
             $table->integer('comments_id');
             $table->integer('completed');
             $table->integer('user_id')->unsigned();
+            $table->string('campaign');
+            $table->text('description');
+            $table->string('gdrive_link');
+            $table->string('crm_link');
+            $table->string('pl_link');
+            $table->string('imp_type');
             $table->string('color');
             $table->timestamps();
         });

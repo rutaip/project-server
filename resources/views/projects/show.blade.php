@@ -29,7 +29,7 @@
         <ul class="nav nav-tabs" role="tablist">
             <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Project</a></li>
             <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Costs</a></li>
-            <li role="presentation"><a href="#PL" aria-controls="PL" role="tab" data-toggle="tab">P&L</a></li>
+            <!--<li role="presentation"><a href="#PL" aria-controls="PL" role="tab" data-toggle="tab">P&L</a></li>-->
             <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Tech Details</a></li>
             <li role="presentation"><a href="#tasks" aria-controls="tasks" role="tab" data-toggle="tab">Project Task</a></li>
             <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Comments</a></li>

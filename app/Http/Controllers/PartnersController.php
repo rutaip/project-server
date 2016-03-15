@@ -38,7 +38,7 @@ class PartnersController extends Controller
     public function create()
     {
         $region = DB::table('regions')->orderBy('id', 'asc')->lists('region','id');
-        $countries = Countries::lists('name', 'name');
+        $countries = Countries::orderBy('name')->lists('name', 'name');
 
         return view('partners.create', compact('region', 'countries'));
     }

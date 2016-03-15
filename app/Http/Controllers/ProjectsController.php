@@ -13,6 +13,8 @@ use Auth;
 use DB;
 use Gate;
 use Carbon\Carbon;
+use App\Invoice;
+use Countries;
 
 class ProjectsController extends Controller
 {
@@ -65,8 +67,9 @@ class ProjectsController extends Controller
         $project_managers = DB::table('pms')->select(DB::raw('concat (first," ",last) as full_name,id'))->orderBy('id', 'asc')->lists('full_name','id');
         $region = DB::table('regions')->orderBy('id', 'asc')->lists('region','id');
         $acd_type = DB::table('acds')->orderBy('id', 'asc')->lists('acd_type','id');
+        $countries = Countries::orderBy('name')->lists('name', 'name');
 
-        return view('projects.create', compact('customer','partner','project_managers','region','acd_type'));
+        return view('projects.create', compact('customer','partner','project_managers','region','acd_type', 'countries'));
 
     }
 
@@ -79,7 +82,13 @@ class ProjectsController extends Controller
         }
 
 
-        Project::create($request->all());
+        $project = Project::create($request->all());
+
+        $invoice = new Invoice();
+        $invoice->project_id=$project->id;
+        $invoice->currency='USD';
+        $invoice->agreement=0;
+        $invoice->save();
         //Session::flash('flash_message', 'Registro creado correctamente!');
 
         return redirect('projects');
@@ -92,6 +101,7 @@ class ProjectsController extends Controller
         $project_managers = DB::table('pms')->select(DB::raw('concat (first," ",last) as full_name,id'))->orderBy('id', 'asc')->lists('full_name','id');
         $region = DB::table('regions')->orderBy('id', 'asc')->lists('region','id');
         $acd_type = DB::table('acds')->orderBy('id', 'asc')->lists('acd_type','id');
+        $countries = Countries::orderBy('name')->lists('name', 'name');
 
         $project = Project::findOrFail($id);
 
@@ -100,7 +110,7 @@ class ProjectsController extends Controller
             abort(403, 'Sorry, not allowed');
         }
 
-        return view('projects.edit',compact('project','customer','partner','project_managers','region','acd_type'));
+        return view('projects.edit',compact('project','customer','partner','project_managers','region','acd_type', 'countries'));
     }
 
     public function update(ProjectRequest $request, $id)

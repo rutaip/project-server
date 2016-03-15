@@ -12,10 +12,9 @@
         </div>
     </div>
     <div class="col-md-6">
-        <div class="col-md-4">
+        <div class="col-md-8">
 
-        </div>
-        <div class="col-md-4">
+            <h4>Campaing = {{$project->campaign}}</h4>
 
         </div>
         <div class="col-md-4">
@@ -28,7 +27,8 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                        aria-hidden="true">&times;</span></button>
                             <h4 class="modal-title" id="myModalLabel">New License</h4>
                         </div>
                         <div class="modal-body">
@@ -73,14 +73,16 @@
                 @can('edit-project', $project)
                 <th>Edit</th>
                 @endcan
-            </tr> </thead>
+            </tr>
+            </thead>
             <tbody>
             @foreach($project->licenses as $license)
                 <tr>
                     <th scope="row">{{$license->name}}</th>
                     <td>{{$license->licenses}}</td>
                     @can('edit-project', $project)
-                    <td><a href="{{ url('projectlicenses/' . $license->id) . '/edit' }}" class="btn btn-primary btn-xs">edit</a></td>
+                    <td><a href="{{ url('projectlicenses/' . $license->id) . '/edit' }}" class="btn btn-primary btn-xs">edit</a>
+                    </td>
                     @endcan
                 </tr>
             @endforeach
@@ -88,6 +90,30 @@
         </table>
     </div>
     <div class="col-md-6">
-
+        <table class="table table-bordered">
+            <caption>Project Links</caption>
+            <thead>
+            <tr class="active">
+                <th>Google Drive Link</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>{{ Html::link($project->gdrive_link, $project->gdrive_link) }}</td>
+            </tr>
+            </tbody>
+        </table>
+        <table class="table table-bordered">
+            <thead>
+            <tr class="active">
+                <th>Presence CRM Linkk</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>{{ Html::link($project->crm_link, $project->crm_link) }}</td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </div>
