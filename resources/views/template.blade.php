@@ -48,11 +48,12 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Projects <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li>{!! HTML::link('projects', 'Project Summary') !!}</li>
+                        <li>{!! HTML::link('projects', 'Projects Summary') !!}</li>
+                        <li>{!! HTML::link('offerings', 'Offerings Summary') !!}</li>
                         <li role="separator" class="divider"></li>
                         <li class="dropdown-header">Actions</li>
                         <li>{!! HTML::link('projects/create', 'New Project') !!}</li>
-                        <li><a href="#">PS Requirement</a></li>
+                        <li>{!! HTML::link('offerings/create', 'New Offering') !!}</li>
                     </ul>
                 </li>
                 <li><a href="#contact">Reports</a></li>

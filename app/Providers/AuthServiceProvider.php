@@ -41,6 +41,12 @@ class AuthServiceProvider extends ServiceProvider
 
         });
 
+        $gate->define('edit-offering', function($user, $offering)
+        {
+            return $user->id == $offering->user_id;
+
+        });
+
         if (Schema::hasTable('permissions'))
         {
         foreach ($this->getPermissions () as $permission) { //comentar en instalación nueva

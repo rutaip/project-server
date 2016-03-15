@@ -78,8 +78,8 @@
                         My current tasks
                     </li>
                     <li class="list-group-item">
-                        <span class="badge">0</span>
-                        Professional Services Requirements
+                        <span class="badge">{{ $offerings }}</span>
+                        Current Offerings
                     </li>
                 </ul>
             </div>

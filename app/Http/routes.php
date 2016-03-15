@@ -56,5 +56,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::resource('resources', 'ResourcesController');
     Route::resource('projectlicenses', 'ProjectLicensesController');
     Route::resource('integrations', 'IntegrationsController');
+    Route::post('offerings/filter', 'OfferingsController@search');
+    Route::resource('offerings', 'OfferingsController');
 
 });

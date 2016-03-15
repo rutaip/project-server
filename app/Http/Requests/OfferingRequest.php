@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
 
-class CommentRequest extends Request
+class OfferingRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,7 @@ class CommentRequest extends Request
     public function rules()
     {
         return [
-            'comment_owner' => 'required|min:3',
-            'comment_text' => 'required|min:3',
+            //
         ];
     }
 }

@@ -17,6 +17,7 @@ class CreateCommentsTable extends Migration
             $table->string('comment_owner');
             $table->text('comment_text');
             $table->integer('project_id');
+            $table->integer('offering_id');
             $table->timestamps();
         });
     }

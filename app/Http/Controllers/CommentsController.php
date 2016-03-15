@@ -46,8 +46,16 @@ class CommentsController extends Controller
         }*/
 
         Comment::create($request->all());
+
         //Session::flash('flash_message', 'Registro creado correctamente!');
-        return redirect('projects/'.$request->project_id);
+
+        if ($request->offering_id == '') {
+
+            return redirect('projects/' . $request->project_id);
+        }
+
+        return redirect('offerings/' . $request->offering_id);
+
     }
 
     public function show($id)

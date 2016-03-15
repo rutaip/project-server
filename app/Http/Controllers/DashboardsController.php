@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Comment;
 use Illuminate\Http\Request;
 use App\Project;
+use App\Offering;
 use Auth;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -71,6 +72,9 @@ class DashboardsController extends Controller
             ->where('project_type_id', '=', '2')
             ->where('created_at', '>=', Carbon::now()->startOfYear())->count();
 
+        $offerings = Offering::where('user_id', 'LIKE', '%'.$project_owner.'%')
+            ->where('master_status', '=', 'offering' )
+            ->where('created_at', '>=', Carbon::now()->startOfYear())->count();
 
         $projectsbystatus = Project::select(DB::raw('count(id) as value'), 'status as label')
             ->where('projects.created_at', '>=', Carbon::now()->startOfYear())
@@ -85,7 +89,7 @@ class DashboardsController extends Controller
             ->orderBy('month')
             ->get();
 
-        return view('dashboard.index', compact('projects', 'projectsbyregion', 'projectsbystatus', 'comments', 'closedpilots', 'closedprojects'))
+        return view('dashboard.index', compact('projects', 'projectsbyregion', 'projectsbystatus', 'comments', 'closedpilots', 'closedprojects', 'offerings'))
             ->with('months', $projectsbymonth->lists('monthname'))
             ->with('totalp', $projectsbymonth->lists('totalp'))
             ->with('pilot_monthname', $pilotsbymonth->lists('pilot_monthname'))

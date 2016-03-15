@@ -9,7 +9,8 @@ class Comment extends Model
     protected $fillable = [
         'comment_owner',
         'comment_text',
-        'project_id'
+        'project_id',
+        'offering_id'
     ];
 
     public function project()
