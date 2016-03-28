@@ -17,6 +17,8 @@
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     {!! Html::style('css/ie10-viewport-bug-workaround.css') !!}
 
+    {!! Html::style('https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/css/select2.min.css') !!}
+
     <!-- Custom styles for this template -->
     {!! Html::style('css/starter-template.css') !!}
 
@@ -24,6 +26,7 @@
     <!--[if lt IE 9]>
     {!! Html::script('https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js') !!}
     {!! Html::script('https://oss.maxcdn.com/respond/1.4.2/respond.min.js') !!}
+
 
     <![endif]-->
 
@@ -194,9 +197,12 @@
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 {!! Html::script('https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js') !!}
+{!! Html::script('https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/js/select2.min.js') !!}
 <script>window.jQuery || document.write('<script src="js/vendor/jquery.min.js"><\/script>')</script>
 {!! Html::script('js/bootstrap.js') !!}
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 {!! Html::script('js/ie10-viewport-bug-workaround.js') !!}
+
+@yield('footer')
 </body>
 </html>

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Tag;
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
 use App\Http\Requests\ProjectRequest;
 use App\Http\Controllers\Controller;
@@ -68,8 +68,9 @@ class ProjectsController extends Controller
         $region = DB::table('regions')->orderBy('id', 'asc')->lists('region','id');
         $acd_type = DB::table('acds')->orderBy('id', 'asc')->lists('acd_type','id');
         $countries = Countries::orderBy('name')->lists('name', 'name');
+        $tags = Tag::lists('name', 'id');
 
-        return view('projects.create', compact('customer','partner','project_managers','region','acd_type', 'countries'));
+        return view('projects.create', compact('customer','partner','project_managers','region','acd_type', 'countries', 'tags'));
 
     }
 
@@ -81,8 +82,8 @@ class ProjectsController extends Controller
             abort(403, 'Sorry, not allowed');
         }
 
-
         $project = Project::create($request->all());
+        $this->syncTags($project, $request);
 
         $invoice = new Invoice();
         $invoice->project_id=$project->id;
@@ -102,6 +103,7 @@ class ProjectsController extends Controller
         $region = DB::table('regions')->orderBy('id', 'asc')->lists('region','id');
         $acd_type = DB::table('acds')->orderBy('id', 'asc')->lists('acd_type','id');
         $countries = Countries::orderBy('name')->lists('name', 'name');
+        $tags = Tag::lists('name', 'id');
 
         $project = Project::findOrFail($id);
 
@@ -110,7 +112,7 @@ class ProjectsController extends Controller
             abort(403, 'Sorry, not allowed');
         }
 
-        return view('projects.edit',compact('project','customer','partner','project_managers','region','acd_type', 'countries'));
+        return view('projects.edit',compact('project','customer','partner','project_managers','region','acd_type', 'countries', 'tags'));
     }
 
     public function update(ProjectRequest $request, $id)
@@ -123,6 +125,8 @@ class ProjectsController extends Controller
         }*/
 
         $project->update($request->all());
+
+        $this->syncTags($project, $request);
 
         return redirect('projects/'.$id);
     }
@@ -158,6 +162,30 @@ class ProjectsController extends Controller
         /* end filter query */
 
         return view('projects.index', compact('projects', 'region'));
+    }
+
+    private function syncTags($project, $request)
+    {
+        if ( ! $request->has('tags'))
+        {
+            $project->tags()->detach();
+            return;
+        }
+
+        $allTagIds = array();
+
+        foreach ($request->tags as $tagId)
+        {
+            if (substr($tagId, 0, 4) == 'new:')
+            {
+                $newTag = Tag::create(['name' => substr($tagId, 4)]);
+                $allTagIds[] = $newTag->id;
+                continue;
+            }
+            $allTagIds[] = $tagId;
+        }
+
+        $project->tags()->sync($allTagIds);
     }
 
 }

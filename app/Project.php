@@ -101,5 +101,9 @@ class Project extends Model
         return $this->hasMany(ProjectLicense::class, 'project_id', 'id');
     }
 
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class)->withTimestamps();
+    }
 
 }

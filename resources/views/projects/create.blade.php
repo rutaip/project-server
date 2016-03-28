@@ -106,6 +106,10 @@
                     <th scope=row>{!! Form::label('description', 'Project Description') !!}</th>
                     <td>{!! Form::textarea('description', null, ['class' => 'form-control', 'required' => 'required', 'rows' => '3']) !!}</td>
                 </tr>
+                <tr>
+                    <th scope=row>{!! Form::label('tags', 'Tags') !!}</th>
+                    <td>{!! Form::select('tags[]', $tags, null, ['id' => 'tags', 'class' => 'form-control', 'required' => 'required', 'multiple']) !!}</td>
+                </tr>
                 </tbody>
             </table>
 
@@ -231,3 +235,20 @@
 
 
 @stop
+
+@section('footer')
+    <script type="text/javascript">
+        $('#tags').select2({
+            placeholder: 'Select an option',
+            tags: true,
+            tokenSeparators: [",", " "],
+            createTag: function(newTag) {
+                return {
+                    id: 'new:' + newTag.term,
+                    text: newTag.term + ' (new)'
+                };
+            }
+
+        });
+    </script>
+@endsection
