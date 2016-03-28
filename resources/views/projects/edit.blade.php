@@ -20,7 +20,11 @@
                 </tr> </thead>
                 <tbody>
                 <tr>
-                    <th scope=row>{!! Form::label('project_name', 'Project Name') !!}</th>
+                    <th scope=row>{!! Form::label('project_name', 'Project Name') !!}
+                        <a href="#" data-toggle="popover" data-trigger="focus" title="Project Name" data-content="The name of the project">
+                            <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                        </a>
+                    </th>
                     <td>{!! Form::text('project_name', null, ['class' => 'form-control', 'required' => 'required']) !!}</td>
                 </tr>
                 <tr>
@@ -104,11 +108,19 @@
                 </thead>
                 <tbody>
                 <tr>
-                    <th scope=row>{!! Form::label('description', 'Project Description') !!}</th>
+                    <th scope=row>{!! Form::label('description', 'Project Description') !!}
+                        <a href="#" data-toggle="popover" data-trigger="focus" title="Project Description" data-content="Useful information of the project, give a summary like explaining to someone else, required for search engine">
+                            <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                        </a>
+                    </th>
                     <td>{!! Form::textarea('description', null, ['class' => 'form-control', 'required' => 'required', 'rows' => '3']) !!}</td>
                 </tr>
                 <tr>
-                    <th scope=row>{!! Form::label('tags', 'Tags') !!}</th>
+                    <th scope=row>{!! Form::label('tags', 'Tags') !!}
+                        <a href="#" data-toggle="popover" data-trigger="focus" title="Project Tags" data-content="Cloud tag for search engine, new tags are allowed writing them directly in the field, then hit intro (billing, outbound, chat, scripting)">
+                            <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                        </a>
+                    </th>
                     <td>{!! Form::select('tags[]', $tags, $project->tags->lists('id')->toArray(), ['id'=>'tags', 'class' => 'form-control', 'required' => 'required', 'multiple']) !!}</td>
                 </tr>
                 </tbody>
@@ -148,19 +160,35 @@
                     <td>{!! Form::select('pre_integrations', array('No' => 'No', 'Yes' => 'Yes'), null, ['class' => 'form-control', 'required' => 'required']) !!}</td>
                 </tr>
                 <tr>
-                    <th scope=row>{!! Form::label('campaign', 'Project Campaign') !!}</th>
+                    <th scope=row>{!! Form::label('campaign', 'Project Campaign') !!}
+                        <a href="#" data-toggle="popover" data-trigger="focus" title="Campaign name" data-content="The given name for the campaign by the customer">
+                            <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                        </a>
+                    </th>
                     <td>{!! Form::text('campaign', null, ['class' => 'form-control']) !!}</td>
                 </tr>
                 <tr>
-                    <th scope=row>{!! Form::label('gdrive_link', 'Google Drive Link') !!}</th>
+                    <th scope=row>{!! Form::label('gdrive_link', 'Google Drive Link') !!}
+                        <a href="#" data-toggle="popover" data-trigger="focus" title="Google Drive Link" data-content="Google drive URL for the project folder, you must be logged with Presence Google account">
+                            <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                        </a>
+                    </th>
                     <td>{!! Form::text('gdrive_link', null, ['class' => 'form-control']) !!}</td>
                 </tr>
                 <tr>
-                    <th scope=row>{!! Form::label('crm_link', 'Presence CRM Link') !!}</th>
+                    <th scope=row>{!! Form::label('crm_link', 'Presence CRM Link') !!}
+                        <a href="#" data-toggle="popover" data-trigger="focus" title="Presence CRM Link" data-content="Presence CRM URL for the project, you must be logged in http://crm.presenceco.com">
+                            <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                        </a>
+                    </th>
                     <td>{!! Form::text('crm_link', null, ['class' => 'form-control']) !!}</td>
                 </tr>
                 <tr>
-                    <th scope=row>{!! Form::label('pl_link', 'P&L File Link') !!}</th>
+                    <th scope=row>{!! Form::label('pl_link', 'P&L File Link') !!}
+                        <a href="#" data-toggle="popover" data-trigger="focus" title="Google Drive Link" data-content="P&L file URL for the project on Google Drive, you must be logged with Presence Google account">
+                            <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                        </a>
+                    </th>
                     <td>{!! Form::text('pl_link', null, ['class' => 'form-control']) !!}</td>
                 </tr>
                 </tbody>
@@ -238,6 +266,16 @@
                     text: newTag.term + ' (new)'
                 };
             }
+
         });
+
+        $(document).ready(function(){
+            $('[data-toggle="popover"]')
+                    .popover()
+                    .click(function(e) {
+                        e.preventDefault();
+                    });
+        });
+
     </script>
 @endsection
