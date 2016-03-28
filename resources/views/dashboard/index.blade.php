@@ -29,36 +29,8 @@
                 <div class="well well-lg"> My closed pilots <strong>{{ $closedpilots }}</strong></div>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-3 placeholder">
-                <h4>Project Updates</h4>
-                <span class="text-muted">Dummy additional info</span>
-
-                    <div class="well well-lg">
-                        <div>
-                            <h2 class="m-top-none value">0</h2>
-                            <h5>Dummy additional info</h5>
-
-                            <div class="value_change"><i class="fa fa-dot-circle-o fa-lg"></i><span class="m-left-xs">The same as previously</span></div>
-
-                            <div class="stat-icon">
-                                <i class="fa fa-phone fa-3x"></i>
-                            </div>
-                        </div>
-                        <div class="back" style="transform: rotateY(-180deg); height: 126px; width: 219px; transform-style: preserve-3d; position: absolute; transition: all 0.5s ease-out; backface-visibility: hidden;">
-                            <h4>DID Net Additions</h4>
-                            <ul class="list-group no-margin">
-                                <li class="list-group-item">
-
-                                    <span class="current_date">Day ending 2016-02-26&nbsp;</span>
-                                    <span class="pull-right value">0</span>
-                                </li>
-                                <li class="list-group-item">
-                                    <span class="previous_date">Day ending 2016-02-25&nbsp;</span>
-                                    <span class="pull-right previous_value">0</span>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-
+                <h4>Project Tags Cloud</h4>
+                        <div id="example"></div>
             </div>
         </div>
 
@@ -135,3 +107,34 @@
     </script>
 
 @stop
+
+@section('footer')
+    <script type="text/javascript">
+        /*!
+         * Create an array of word objects, each representing a word in the cloud
+         */
+        var word_array = [
+            {text: "Outbound", weight: 15, link: "http://jquery.com/"},
+            {text: "Billing", weight: 9, link: "http://jquery.com/"},
+            {text: "Dolor", weight: 6, html: {title: "I can haz any html attribute"}},
+            {text: "Sit", weight: 7},
+            {text: "Sit", weight: 7},
+            {text: "Sit", weight: 8},
+            {text: "Sit", weight: 9},
+            {text: "Sit", weight: 8},
+            {text: "Amet", weight: 5}
+            // ...as many words as you want
+        ];
+
+        $(function() {
+            // When DOM is ready, select the container element and call the jQCloud method, passing the array of words as the first argument.
+            $("#example").jQCloud(word_array, {
+                width: 250,
+                height: 200,
+                autoResize: true
+            });
+        });
+    </script>
+
+
+@endsection

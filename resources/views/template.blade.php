@@ -17,7 +17,11 @@
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     {!! Html::style('css/ie10-viewport-bug-workaround.css') !!}
 
-    {!! Html::style('https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/css/select2.min.css') !!}
+    <!-- Select tag -->
+    {!! Html::style('css/select2.min.css') !!}
+
+    <!-- Cloud tag css -->
+    {!! Html::style('css/jqcloud.css') !!}
 
     <!-- Custom styles for this template -->
     {!! Html::style('css/starter-template.css') !!}
@@ -197,9 +201,10 @@
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 {!! Html::script('https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js') !!}
-{!! Html::script('https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/js/select2.min.js') !!}
+{!! Html::script('js/select2.min.js') !!}
 <script>window.jQuery || document.write('<script src="js/vendor/jquery.min.js"><\/script>')</script>
 {!! Html::script('js/bootstrap.js') !!}
+{!! Html::script('js/jqcloud.min.js') !!}
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 {!! Html::script('js/ie10-viewport-bug-workaround.js') !!}
 
