@@ -12,6 +12,7 @@ use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Gate;
+use App\Tag;
 
 class DashboardsController extends Controller
 {
@@ -89,7 +90,13 @@ class DashboardsController extends Controller
             ->orderBy('month')
             ->get();
 
-        return view('dashboard.index', compact('projects', 'projectsbyregion', 'projectsbystatus', 'comments', 'closedpilots', 'closedprojects', 'offerings'))
+        $tags = Tag::join('project_tag', 'tags.id', '=', 'tag_id')
+            ->select(DB::raw('COUNT(tag_id) as weight'), 'name as text', DB::raw('CONCAT("search/", name) as link'))
+            ->groupBy('tag_id')
+            ->orderBy('weight')
+            ->get();
+
+        return view('dashboard.index', compact('projects', 'projectsbyregion', 'projectsbystatus', 'comments', 'closedpilots', 'closedprojects', 'offerings', 'tags'))
             ->with('months', $projectsbymonth->lists('monthname'))
             ->with('totalp', $projectsbymonth->lists('totalp'))
             ->with('pilot_monthname', $pilotsbymonth->lists('pilot_monthname'))

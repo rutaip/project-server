@@ -106,4 +106,9 @@ class Project extends Model
         return $this->belongsToMany(Tag::class)->withTimestamps();
     }
 
+    public function tasks()
+    {
+        return $this->hasMany(Task::class, 'project_id', 'id')->select('*', DB::raw('DATEDIFF(finish_date, start_date) as days'))->where('parent_task', '>', 0);
+    }
+
 }

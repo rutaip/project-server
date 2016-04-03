@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Resource;
 use App\Tag;
 use Illuminate\Http\Request;
 use App\Http\Requests;
@@ -14,6 +15,7 @@ use DB;
 use Gate;
 use Carbon\Carbon;
 use App\Invoice;
+use App\Task;
 use Countries;
 
 class ProjectsController extends Controller
@@ -54,10 +56,12 @@ class ProjectsController extends Controller
     {
         $project = Project::findOrFail($id);
         $comments_count = Comment::where('project_id', $id)->count();
+        $tasks_sum = Task::where('project_id', $id)->where('parent_task', '>', 0)->sum('completed');
+        $resources = Resource::orderBy('name', 'asc')->lists('name', 'id');
+        $tasks = Task::where('project_id', $id)->orderBy('id', 'asc')->lists('name','id');
         $modules = DB::table('modules')->orderBy('id', 'asc')->lists('name','name');
 
-
-        return view('projects.show',compact('project', 'comments_count', 'modules'));
+        return view('projects.show',compact('project', 'comments_count', 'modules', 'resources', 'tasks', 'tasks_count', 'tasks_sum'));
     }
 
     public function create()
@@ -91,6 +95,8 @@ class ProjectsController extends Controller
         $invoice->agreement=0;
         $invoice->save();
         //Session::flash('flash_message', 'Registro creado correctamente!');
+
+        $this->newTasks($project);
 
         return redirect('projects');
     }
@@ -188,4 +194,15 @@ class ProjectsController extends Controller
         $project->tags()->sync($allTagIds);
     }
 
+    private function newTasks($project){
+        $parent = Task::create(['name' => $project->project_name, 'project_id' => $project->id, 'completed' => '0', 'task_owner' => '1']);
+        Task::create(['name' => 'POC/Commercial Offer', 'project_id' => $project->id, 'completed' => '0', 'task_owner' => '1', 'parent_task' => $parent->id]);
+        Task::create(['name' => 'SOW', 'project_id' => $project->id, 'completed' => '0', 'task_owner' => '1', 'parent_task' => $parent->id]);
+        Task::create(['name' => 'Kickoff', 'project_id' => $project->id, 'completed' => '0', 'task_owner' => '1', 'parent_task' => $parent->id]);
+        Task::create(['name' => 'Validation Checklist', 'project_id' => $project->id, 'completed' => '0', 'task_owner' => '1', 'parent_task' => $parent->id]);
+        Task::create(['name' => 'Training', 'project_id' => $project->id, 'completed' => '0', 'task_owner' => '1', 'parent_task' => $parent->id]);
+        Task::create(['name' => 'UAT', 'project_id' => $project->id, 'completed' => '0', 'task_owner' => '1', 'parent_task' => $parent->id]);
+        Task::create(['name' => 'Go live', 'project_id' => $project->id, 'completed' => '0', 'task_owner' => '1', 'parent_task' => $parent->id]);
+        Task::create(['name' => 'End of project', 'project_id' => $project->id, 'completed' => '0', 'task_owner' => '1', 'parent_task' => $parent->id]);
+    }
 }

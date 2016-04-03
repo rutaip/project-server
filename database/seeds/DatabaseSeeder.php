@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
         $this->command->info('Seeded the Presence Modules!');
 
         $this->call('RegionsTableSeeder');
-        $this->command->info('Seeded the Regions, acds, pms, partner, customer, admin role, admin user!');
+        $this->command->info('Seeded the Regions, acds, pms, partner, customer, admin role, admin user!, pm resource');
 
         $this->call('PermissionTableSeeder');
         $this->command->info('Seeded the permissions, to admin role, admin user!');

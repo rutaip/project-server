@@ -38,6 +38,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/', 'DashboardsController@index');
 
     Route::post('search', 'SearchController@search');
+    Route::get('search/{tag}', 'SearchController@show');
     Route::resource('comments', 'CommentsController');
     Route::resource('tasks', 'TasksController');
     Route::post('projects/filter', 'ProjectsController@search');

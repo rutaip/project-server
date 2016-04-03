@@ -14,9 +14,7 @@
             <h4>{{ Html::link($project->pl_link, 'P&L File link') }}</h4>
         </div>
         <div class="col-md-4">
-            <button class="btn btn-default btn-block" type="button">
-                Update
-            </button>
+
         </div>
     </div>
 </div>

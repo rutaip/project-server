@@ -66,6 +66,10 @@ class RegionsTableSeeder extends Seeder
             'user_id' => '1',
         ]);
 
+        DB::table('role_user')->insert([
+            'name' => 'Project Manager',
+        ]);
+
 
 
     }

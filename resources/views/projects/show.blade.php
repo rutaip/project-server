@@ -23,6 +23,50 @@
         });
     </script>
 
+    @if ($project->status == "On_Time")
+        <?php
+            $progress_bar='progress-bar-success';
+            $progress_dot='images/green.png';
+            $progress_dot_alt='On Time';
+        ?>
+    @elseif($project->status == "Delayed")
+        <?php
+        $progress_bar='progress-bar-warning';
+        $progress_dot='images/yellow.png';
+        $progress_dot_alt='Delayed';
+        ?>
+    @elseif($project->status == "Risk")
+        <?php
+        $progress_bar='progress-bar-danger';
+        $progress_dot='images/red.png';
+        $progress_dot_alt='Risk';
+        ?>
+    @elseif($project->status == "Pending")
+        <?php
+        $progress_bar='progress-bar-info';
+        $progress_dot='images/light_blue.png';
+        $progress_dot_alt='Pending';
+        ?>
+    @elseif($project->status == "Production")
+        <?php
+        $progress_bar='';
+        $progress_dot='images/orange.png';
+        $progress_dot_alt='Production';
+        ?>
+    @elseif($project->status == "Pilot")
+        <?php
+        $progress_bar='';
+        $progress_dot='images/blue.png';
+        $progress_dot_alt='Pilot';
+        ?>
+    @else
+        <?php
+        $progress_bar='';
+        $progress_dot='images/Grey.png';
+        $progress_dot_alt='On Time';
+        ?>
+    @endif
+
     <div>
 
         <!-- Nav tabs -->
@@ -76,7 +120,7 @@
 
             <!-- pestaña tareas-->
             <div role="tabpanel" class="tab-pane fade" id="tasks">
-
+                @include('projects/tasks')
             </div>
             <!-- fin pestaña tareas -->
 

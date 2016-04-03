@@ -13,6 +13,41 @@
 
 @section('content')
 
+    <table class="table table-bordered">
+        <caption>Projects results</caption>
+        <thead>
+        <tr class="active">
+            <th>Project</th>
+            <th>Project Description</th>
+            <th>Tags</th>
+            <th>View</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        @foreach($projects as $project)
+            <tr>
+                <th>{{$project->project_name}}</th>
+                <td class="small">{{$project->description}}</td>
+                <td class="small">
+                    <ul>
+                        @foreach($project->tags as $tag)
+                        <li>{{$tag->name}}</li>
+                        @endforeach
+                    </ul>
+                </td>
+
+                <td style="text-align: center">
+                    {{ Html::link('/projects/'.$project->id, 'more..')}}
+                </td>
+            </tr>
+
+        @endforeach
+
+        </tbody>
+    </table>
+    {!! $integrations->links() !!}
+
 
     <table class="table table-bordered">
         <caption>Integrations results</caption>
@@ -51,7 +86,7 @@
         <thead>
         <tr class="active">
             <th>Project</th>
-            <th>Information</th>
+            <th>Comments</th>
             <th>Post Owner</th>
             <th>View</th>
         </tr>
@@ -74,6 +109,33 @@
         </tbody>
     </table>
     {!! $comments->links() !!}
+
+    <table class="table table-bordered">
+        <caption>Tags results</caption>
+        <thead>
+        <tr class="active">
+            <th>Project</th>
+            <th>Information</th>
+            <th>View</th>
+        </tr>
+        </thead>
+        <tbody>
+@foreach($tags as $tag)
+    @foreach($tag->projects as $project)
+    <tr>
+        <th>{{$project->project_name}}</th>
+        <td>{{$project->description}}</td>
+        <td style="text-align: center">
+            {{ Html::link('/projects/'.$project->id, 'more..')}}
+        </td>
+    </tr>
+    @endforeach
+
+@endforeach
+
+        </tbody>
+    </table>
+    {!! $tags->links() !!}
 
 
 

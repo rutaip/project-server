@@ -2,28 +2,26 @@
 <div class="row">
     <div class="col-md-6">
         <div class="col-md-4">
-            <h5>General Status = {{$project->master_status}}</h5>
+            <h4>General Status = {{$project->master_status}}</h4>
         </div>
         <div class="col-md-4">
-            <h5>Type =
+            <h4>Type =
                 @if ($project->project_type_id == 1)
                     Pilot
                 @else
                     Project
                 @endif
-            </h5>
+            </h4>
         </div>
         <div class="col-md-4">
-            <h5>
+            <h4>
                 Implementation Type = {{$project->imp_type }}
-            </h5>
+            </h4>
         </div>
     </div>
     <div class="col-md-6">
         <div class="col-md-4">
-            <button class="btn btn-default btn-block" type="button">
-                Tasks <span class="badge">4</span>
-            </button>
+            <a href="#tasks" class="btn btn-default btn-block" aria-controls="settings" role="tab" data-toggle="tab"> Tasks <span class="badge">{{count($project->tasks)}}</span></a>
         </div>
         <div class="col-md-4">
             <a href="#settings" class="btn btn-default btn-block" aria-controls="settings" role="tab" data-toggle="tab">Comments <span class="badge">{{ $comments_count }}</span></a>
@@ -67,21 +65,7 @@
             <tbody>
             <tr>
                 <th scope=row>Status</th>
-                @if ($project->status == "On_Time")
-                    <td>{!! Html::image('images/green.png', 'On Time', array( 'width' => 20, 'height' => 20 )) !!} {{$project->status}}</td>
-                @elseif($project->status == "Delayed")
-                    <td>{!! Html::image('images/yellow.png', 'On Time', array( 'width' => 20, 'height' => 20 )) !!} {{$project->status}}</td>
-                @elseif($project->status == "Risk")
-                    <td>{!! Html::image('images/red.png', 'On Time', array( 'width' => 20, 'height' => 20 )) !!} {{$project->status}}</td>
-                @elseif($project->status == "Pending")
-                    <td>{!! Html::image('images/light_blue.png', 'On Time', array( 'width' => 20, 'height' => 20 )) !!} {{$project->status}}</td>
-                @elseif($project->status == "Production")
-                    <td>{!! Html::image('images/orange.png', 'On Time', array( 'width' => 20, 'height' => 20 )) !!} {{$project->status}}</td>
-                @elseif($project->status == "Pilot")
-                    <td>{!! Html::image('images/blue.png', 'On Time', array( 'width' => 20, 'height' => 20 )) !!} {{$project->status}}</td>
-                @else
-                    <td>{!! Html::image('images/grey.png', 'On Time', array( 'width' => 20, 'height' => 20 )) !!} {{$project->status}}</td>
-                @endif
+                    <td>{!! Html::image($progress_dot, $progress_dot_alt, array( 'width' => 20, 'height' => 20 )) !!} {{$project->status}}</td>
             </tr>
             <tr>
                 <th scope=row>Customer</th>
@@ -119,8 +103,8 @@
                 <th scope=row>Progress</th>
                 <td>
 
-                    <div class="progress-bar" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%;">
-                        80%
+                    <div class="progress-bar  {{$progress_bar}} progress-bar-striped" role="progressbar" aria-valuenow="{{round($tasks_sum/count($project->tasks))}}" aria-valuemin="0" aria-valuemax="100" style="width: {{round($tasks_sum/count($project->tasks))}}%;">
+                        {{round($tasks_sum/count($project->tasks))}}%
                     </div>
 
                 </td>
