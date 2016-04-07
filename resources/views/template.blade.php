@@ -47,7 +47,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Presence Project Server</a>
+            <a class="navbar-brand" href="/">Presence Project Server</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
@@ -58,9 +58,15 @@
                         <li>{!! HTML::link('projects', 'Projects Summary') !!}</li>
                         <li>{!! HTML::link('offerings', 'Offerings Summary') !!}</li>
                         <li role="separator" class="divider"></li>
+                        @can('view_menu_actions')
                         <li class="dropdown-header">Actions</li>
+                        @can('create_project')
                         <li>{!! HTML::link('projects/create', 'New Project') !!}</li>
+                        @endcan
+                        @can('create_offering')
                         <li>{!! HTML::link('offerings/create', 'New Offering') !!}</li>
+                        @endcan
+                        @endcan
                     </ul>
                 </li>
                 <li><a href="#contact">Reports</a></li>

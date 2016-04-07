@@ -32,6 +32,9 @@ class PermissionTableSeeder extends Seeder
             array('label' => 'View Comments', 'name' => 'comments'),        //16
             array('label' => 'Worldwide User', 'name' => 'worldwide'),        //17
             array('label' => 'View Resources', 'name' => 'resources'),        //18
+            array('label' => 'View Menu Actions', 'name' => 'view_menu_actions'),        //19
+            array('label' => 'Create new project', 'name' => 'create_project'),        //20
+            array('label' => 'Create new offering', 'name' => 'create_offering'),        //21
         );
         DB::table('permissions')->insert($permissions);
 
@@ -56,6 +59,9 @@ class PermissionTableSeeder extends Seeder
             array('permission_id' => '16', 'role_id' => '1'),
             array('permission_id' => '17', 'role_id' => '1'),
             array('permission_id' => '18', 'role_id' => '1'),
+            array('permission_id' => '19', 'role_id' => '1'),
+            array('permission_id' => '20', 'role_id' => '1'),
+            array('permission_id' => '21', 'role_id' => '1'),
         );
         DB::table('permission_role')->insert($permission_role);
     }
