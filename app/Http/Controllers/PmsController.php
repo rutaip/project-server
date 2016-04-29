@@ -48,7 +48,7 @@ class PmsController extends Controller
         }
 
         Pm::create($request->all());
-        //Session::flash('flash_message', 'Registro creado correctamente!');
+        session()->flash('flash_message', 'Record successfully created!');
         return redirect('pms');
     }
 
@@ -71,7 +71,7 @@ class PmsController extends Controller
         }
 
         $pm->update($request->all());
-
+        session()->flash('flash_message', 'Record successfully updated!');
         return redirect('pms');
     }
 
@@ -85,7 +85,7 @@ class PmsController extends Controller
         }
 
         $pm->delete();
-
+        session()->flash('flash_message', 'Record successfully deleted!');
         return redirect('pms');
     }
 

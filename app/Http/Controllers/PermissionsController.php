@@ -40,7 +40,7 @@ class PermissionsController extends Controller
     public function store(PermissionRequest $request)
     {
         Permission::create($request->all());
-        //Session::flash('flash_message', 'Registro creado correctamente!');
+        session()->flash('flash_message', 'Record successfully created!');
         return redirect('permissions');
     }
 
@@ -57,7 +57,7 @@ class PermissionsController extends Controller
         $permission = Permission::findOrFail($id);
 
         $permission->update($request->all());
-
+        session()->flash('flash_message', 'Record successfully updated!');
         return redirect('permissions');
     }
 

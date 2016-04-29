@@ -192,6 +192,8 @@
 </div>
 <div class="container">
 
+    @include('partials.flash')
+
     <h2>@yield('page')</h2>
 
     <hr>
@@ -213,6 +215,8 @@
 {!! Html::script('js/jqcloud.min.js') !!}
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 {!! Html::script('js/ie10-viewport-bug-workaround.js') !!}
+<!-- Custom scripts -->
+{!! Html::script('js/custom.js') !!}
 
 @yield('footer')
 </body>

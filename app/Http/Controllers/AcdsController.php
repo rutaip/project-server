@@ -47,7 +47,7 @@ class AcdsController extends Controller
         }
 
         Acd::create($request->all());
-        //Session::flash('flash_message', 'Registro creado correctamente!');
+        session()->flash('flash_message', 'Record successfully created!');
         return redirect('acds');
     }
 
@@ -62,7 +62,7 @@ class AcdsController extends Controller
     public function edit($id)
     {
         $acd = Acd::findOrFail($id);
-
+        session()->flash('flash_message', 'Record successfully updated!');
         return view('acds.edit', compact('acd'));
     }
 

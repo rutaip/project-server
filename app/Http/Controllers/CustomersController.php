@@ -50,7 +50,9 @@ class CustomersController extends Controller
         }
 
         Customer::create($request->all());
-        //Session::flash('flash_message', 'Registro creado correctamente!');
+
+        session()->flash('flash_message', 'Record successfully created!');
+
         return redirect('customers');
     }
 
@@ -73,6 +75,7 @@ class CustomersController extends Controller
         }
 
         $customer->update($request->all());
+        session()->flash('flash_message', 'Record successfully updated!');
 
         return redirect('customers');
     }
@@ -87,6 +90,8 @@ class CustomersController extends Controller
         }
 
         $customer->delete();
+
+        session()->flash('flash_message', 'Record successfully deleted!');
 
         return redirect('customers');
     }

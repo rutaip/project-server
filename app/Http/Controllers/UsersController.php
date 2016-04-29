@@ -57,7 +57,7 @@ class UsersController extends Controller
            'region_id' => $data['region_id'],
            'password' => bcrypt($data['password']),
        ]);
-        //Session::flash('flash_message', 'Registro creado correctamente!');
+
 
         $user->assignRole($data->role);
 
@@ -66,7 +66,8 @@ class UsersController extends Controller
 
             $m->to($user->email, $user->name.' '.$user->last )->subject('Welcome Presence Project Server');
         });
-
+        
+        session()->flash('flash_message', 'Record successfully created!');
         return redirect('users');
     }
 
@@ -104,7 +105,7 @@ class UsersController extends Controller
         $user->roles()->detach();
 
         $user->assignRole($request->role);
-
+        session()->flash('flash_message', 'Record successfully updated!');
         return redirect('users');
     }
 
@@ -119,7 +120,7 @@ class UsersController extends Controller
         }
 
         $user->delete();
-
+        session()->flash('flash_message', 'Record successfully deleted!');
         return redirect('users');
     }
 }

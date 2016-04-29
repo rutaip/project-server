@@ -45,7 +45,7 @@ class IntegrationsController extends Controller
         }*/
 
         Integration::create($request->all());
-        //Session::flash('flash_message', 'Registro creado correctamente!');
+        session()->flash('flash_message', 'Record successfully created!');
         return redirect('projects/'.$request->project_id);
     }
 
@@ -75,6 +75,7 @@ class IntegrationsController extends Controller
 
         $integration->update($request->all());
 
+        session()->flash('flash_message', 'Record successfully updated!');
         return redirect('projects/'. $request->project_id);
     }
 
@@ -89,7 +90,8 @@ class IntegrationsController extends Controller
         }*/
 
         $integration->delete();
-
+        session()->flash('flash_message', 'Record successfully deleted!');
+        
         return redirect('integrations');
     }
 }

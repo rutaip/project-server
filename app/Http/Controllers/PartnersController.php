@@ -52,7 +52,7 @@ class PartnersController extends Controller
 
         Partner::create($request->all());
 
-        //Session::flash('flash_message', 'Registro creado correctamente!');
+        session()->flash('flash_message', 'Record successfully created!');
         return redirect('partners');
     }
 
@@ -75,7 +75,7 @@ class PartnersController extends Controller
         }
 
         $partner->update($request->all());
-
+        session()->flash('flash_message', 'Record successfully updated!');
         return redirect('partners');
     }
 
@@ -87,7 +87,7 @@ class PartnersController extends Controller
 
             abort(403, 'Sorry, not allowed');
         }
-
+        session()->flash('flash_message', 'Record successfully updated!');
         $partner->delete();
 
         return redirect('partners');

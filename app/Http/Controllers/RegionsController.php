@@ -54,7 +54,7 @@ class RegionsController extends Controller
 
 
         Region::create($request->all());
-        //Session::flash('flash_message', 'Registro creado correctamente!');
+        session()->flash('flash_message', 'Record successfully created!');
         return redirect('regions');
     }
 
@@ -84,7 +84,7 @@ class RegionsController extends Controller
 
 
         $region->update($request->all());
-
+        session()->flash('flash_message', 'Record successfully updated!');
         return redirect('regions');
     }
 
@@ -100,7 +100,7 @@ class RegionsController extends Controller
 
 
         $region->delete();
-
+        session()->flash('flash_message', 'Record successfully deleted!');
         return redirect('regions');
     }
 

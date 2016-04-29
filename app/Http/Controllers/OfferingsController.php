@@ -85,7 +85,7 @@ class OfferingsController extends Controller
         }
         Offering::create($request->all());
 
-        //Session::flash('flash_message', 'Registro creado correctamente!');
+        session()->flash('flash_message', 'Record successfully created!');
 
         return redirect('offerings');
     }
@@ -120,6 +120,8 @@ class OfferingsController extends Controller
 
         $offering->update($request->all());
 
+        session()->flash('flash_message', 'Record successfully updated!');
+        
         return redirect('offerings/'.$id);
     }
 

@@ -47,7 +47,7 @@ class RolesController extends Controller
         }
 
         Role::create($request->all());
-        //Session::flash('flash_message', 'Registro creado correctamente!');
+        session()->flash('flash_message', 'Record successfully created!');
         return redirect('roles');
     }
 
@@ -76,7 +76,7 @@ class RolesController extends Controller
         }
 
         $role->update($request->all());
-
+        session()->flash('flash_message', 'Record successfully updated!');
         return redirect('roles');
     }
 
@@ -91,7 +91,7 @@ class RolesController extends Controller
         }
 
         $role->delete();
-
+        session()->flash('flash_message', 'Record successfully deleted!');
         return redirect('roles');
     }
 

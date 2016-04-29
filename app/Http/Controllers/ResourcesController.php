@@ -47,7 +47,7 @@ class ResourcesController extends Controller
 
         Resource::create($request->all());
 
-        //Session::flash('flash_message', 'Registro creado correctamente!');
+        session()->flash('flash_message', 'Record successfully created!');
         return redirect('resources');
     }
 
@@ -68,7 +68,7 @@ class ResourcesController extends Controller
         }
 
         $resource->update($request->all());
-
+        session()->flash('flash_message', 'Record successfully updated!');
         return redirect('resources');
     }
 
@@ -82,7 +82,7 @@ class ResourcesController extends Controller
         }
 
         $resource->delete();
-
+        session()->flash('flash_message', 'Record successfully deleted!');
         return redirect('resources');
     }
 }

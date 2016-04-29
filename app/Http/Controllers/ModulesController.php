@@ -48,7 +48,7 @@ class ModulesController extends Controller
 
 
         Module::create($request->all());
-        //Session::flash('flash_message', 'Registro creado correctamente!');
+        session()->flash('flash_message', 'Record successfully created!');
         return redirect('modules');
     }
 
@@ -78,7 +78,7 @@ class ModulesController extends Controller
 
 
         $module->update($request->all());
-
+        session()->flash('flash_message', 'Record successfully updated!');
         return redirect('modules');
     }
 
@@ -94,7 +94,7 @@ class ModulesController extends Controller
 
 
         $module->delete();
-
+        session()->flash('flash_message', 'Record successfully deleted!');
         return redirect('modules');
     }
 

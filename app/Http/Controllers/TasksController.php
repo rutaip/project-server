@@ -40,7 +40,7 @@ class TasksController extends Controller
         }*/
 
         $task->update($request->all());
-
+        session()->flash('flash_message', 'Record successfully updated!');
         return redirect('projects/'. $task->project_id);
     }
     

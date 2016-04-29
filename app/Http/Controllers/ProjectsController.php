@@ -99,7 +99,8 @@ class ProjectsController extends Controller
         $invoice->currency='USD';
         $invoice->agreement=0;
         $invoice->save();
-        //Session::flash('flash_message', 'Registro creado correctamente!');
+
+        session()->flash('flash_message', 'Record successfully created!');
 
         $this->newTasks($project);
 
@@ -139,6 +140,8 @@ class ProjectsController extends Controller
 
         $this->syncTags($project, $request);
 
+        session()->flash('flash_message', 'Record successfully updated!');
+        
         return redirect('projects/'.$id);
     }
 

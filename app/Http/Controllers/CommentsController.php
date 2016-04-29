@@ -47,7 +47,7 @@ class CommentsController extends Controller
 
         Comment::create($request->all());
 
-        //Session::flash('flash_message', 'Registro creado correctamente!');
+        session()->flash('flash_message', 'Record successfully created!');
 
         if ($request->offering_id == '') {
 
@@ -84,6 +84,8 @@ class CommentsController extends Controller
 
         $comment->update($request->all());
 
+        session()->flash('flash_message', 'Record successfully updated!');
+
         return redirect('comments');
     }
 
@@ -99,6 +101,7 @@ class CommentsController extends Controller
 
         $comment->delete();
 
+        session()->flash('flash_message', 'Record successfully deleted!');
         return redirect('comments');
     }
 }
