@@ -79,6 +79,10 @@ class OfferingsController extends Controller
             abort(403, 'Sorry, not allowed');
         }
 
+        if  (Gate::denies('create_offering', $request)) {
+
+            abort(403, 'Sorry, not allowed');
+        }
         Offering::create($request->all());
 
         //Session::flash('flash_message', 'Registro creado correctamente!');

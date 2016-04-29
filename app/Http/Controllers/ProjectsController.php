@@ -86,6 +86,11 @@ class ProjectsController extends Controller
             abort(403, 'Sorry, not allowed');
         }
 
+        if  (Gate::denies('create_project', $request)) {
+
+            abort(403, 'Sorry, not allowed');
+        }
+
         $project = Project::create($request->all());
         $this->syncTags($project, $request);
 
