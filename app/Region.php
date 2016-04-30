@@ -33,5 +33,10 @@ class Region extends Model
         return $this->belongsTo('App\Pm');
     }
 
+    public function members()
+    {
+        return $this->hasMany(User::class, 'region_id', 'id');
+    }
+
 
 }

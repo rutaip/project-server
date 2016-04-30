@@ -8,9 +8,11 @@ use App\Region;
 use App\Role;
 use App\Http\Requests;
 use App\Http\Requests\UserRequest;
+use Auth;
 use Mail;
 use Gate;
 use App\Http\Controllers\Controller;
+use App\Notification;
 
 class UsersController extends Controller
 {
@@ -50,6 +52,14 @@ class UsersController extends Controller
             abort(403, 'Sorry, not allowed');
         }
 
+        $notification=array();
+        $notification[]=7;
+        $notification[]=8;
+        $notification[]=9;
+        $notification[]=10;
+        $notification[]=11;
+        $notification[]=12;
+
        $user = User::create([
            'name' => $data['name'],
            'last' => $data['last'],
@@ -60,6 +70,9 @@ class UsersController extends Controller
 
 
         $user->assignRole($data->role);
+
+        $user->notifications()->sync($notification);
+
 
         Mail::send('emails.newuser', ['user' => $user, 'password' => $data['password']], function ($m) use ($user) {
             $m->from('project@presenceco.com', 'Presence Project Server');
@@ -123,4 +136,5 @@ class UsersController extends Controller
         session()->flash('flash_message', 'Record successfully deleted!');
         return redirect('users');
     }
+
 }

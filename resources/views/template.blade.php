@@ -172,19 +172,76 @@
                         <strong>Region:</strong> {{ $login->region->region }}
                     </div>
                     <div class="col-sm-6">
-                        <br>
+                        {!! Form::open(array('url' => 'notifications', 'id' => 'notifications')) !!}
+                        Route::post('post-index', 'HomeController@postIndex');
+                        <table class="table table-bordered h6 text-center">
+                            <caption>Email Notifications</caption>
+                            <thead>
+                                <tr class="active">
+                                    <th>Type</th>
+                                    <th>User</th>
+                                    <th>Region</th>
+                                    <th>WW</th>
+                                </tr>
+                            </thead>
+                            <tbody>
 
+                            @foreach($login->notifications as $notification)
+
+                                <td>{{ $notification->id }}</td>
+
+                            @endforeach
+
+
+                            <tr>
+                                    <th>New Project</th>
+                                    <td>{{ Form::radio('project_new', '1', ('' == '1')) }}</td>
+                                    <td>{{ Form::radio('project_new', '7', ('7' == '7')) }}</td>
+                                    <td>{{ Form::radio('project_new', '13',('' == '13')) }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Update Project</th>
+                                    <td>{{ Form::radio('project_update', '3') }}</td>
+                                    <td>{{ Form::radio('project_update', '9') }}</td>
+                                    <td>{{ Form::radio('project_update', '15') }}</td>
+                                </tr>
+                                <tr>
+                                    <th>New Offering</th>
+                                    <td>{{ Form::radio('offering_new', '2') }}</td>
+                                    <td>{{ Form::radio('offering_new', '8', true) }}</td>
+                                    <td>{{ Form::radio('offering_new', '14') }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Update offering</th>
+                                    <td>{{ Form::radio('offering_update', '4') }}</td>
+                                    <td>{{ Form::radio('offering_update', '10') }}</td>
+                                    <td>{{ Form::radio('offering_update', '16') }}</td>
+                                </tr>
+                                <tr>
+                                    <th>New Comments</th>
+                                    <td>{{ Form::radio('comments', '5') }}</td>
+                                    <td>{{ Form::radio('comments', '11') }}</td>
+                                    <td>{{ Form::radio('comments', '17') }}</td>
+                                </tr>
+                                <tr>
+                                    <th>New integration</th>
+                                    <td>{{ Form::radio('integration', '6') }}</td>
+                                    <td>{{ Form::radio('integration', '12') }}</td>
+                                    <td>{{ Form::radio('integration', '18') }}</td>
+
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
                 <div class="row">
-
-
                 </div>
             </div>
             <div class="modal-footer">
 
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                {!! Form::submit('Save Changes', ['class' => 'btn btn-primary']) !!}
+                {!! Form::submit('Save Changes', ['class' => 'btn btn-primary', 'value' => 'notifications']) !!}
+                {!! Form::close() !!}
 
             </div>
         </div>

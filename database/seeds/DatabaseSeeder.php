@@ -25,6 +25,9 @@ class DatabaseSeeder extends Seeder
         $this->call('PermissionTableSeeder');
         $this->command->info('Seeded the permissions, to admin role, admin user!');
 
+        $this->call('EmailNotificationsSeeder');
+        $this->command->info('Seeded the email notifications!');
+
 
     }
 }

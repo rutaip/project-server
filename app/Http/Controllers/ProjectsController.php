@@ -13,10 +13,12 @@ use App\Comment;
 use Auth;
 use DB;
 use Gate;
+use Mail;
 use Carbon\Carbon;
 use App\Invoice;
 use App\Task;
 use Countries;
+use App\Notification;
 
 class ProjectsController extends Controller
 {
@@ -48,6 +50,7 @@ class ProjectsController extends Controller
         }
 
         $projects = $projects->latest()->get();
+        
 
         return view('projects.index', compact('projects', 'region'));
     }
@@ -100,9 +103,13 @@ class ProjectsController extends Controller
         $invoice->agreement=0;
         $invoice->save();
 
-        session()->flash('flash_message', 'Record successfully created!');
 
         $this->newTasks($project);
+        $this->email('user_new_project', $project, 'Create');
+        $this->email('region_new_project', $project, 'Create');
+        $this->email('ww_new_project', $project, 'Create');
+
+        flash()->success('Record successfully created!');
 
         return redirect('projects');
     }
@@ -139,6 +146,10 @@ class ProjectsController extends Controller
         $project->update($request->all());
 
         $this->syncTags($project, $request);
+        
+        $this->email('user_update_project', $project, 'Update');
+        $this->email('region_update_project', $project, 'Update');
+        $this->email('ww_update_project', $project, 'Update');
 
         session()->flash('flash_message', 'Record successfully updated!');
         
@@ -213,4 +224,22 @@ class ProjectsController extends Controller
         Task::create(['name' => 'Go live', 'project_id' => $project->id, 'completed' => '0', 'task_owner' => '1', 'parent_task' => $parent->id]);
         Task::create(['name' => 'End of project', 'project_id' => $project->id, 'completed' => '0', 'task_owner' => '1', 'parent_task' => $parent->id]);
     }
+    
+    private function email($tag, $project, $action){
+        $notifications=Notification::where('name', $tag)->with('users')->get();
+
+        $email= array();
+        foreach ($notifications as $notification){
+            foreach ($notification->users as $users){
+                $email[] = $users->email;
+            }
+        }
+
+        Mail::send('emails.project_update', ['project' => $project, 'action' => $action], function ($m) use ($email, $project, $action) {
+            $m->from('project@presenceco.com', 'Presence Project Server');
+
+            $m->bcc($email)->subject('Project ' . $project->project_name . ' '.$action . ' - Presence Project Server');
+        });
+    }
+    
 }

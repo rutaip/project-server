@@ -50,6 +50,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::resource('customers', 'CustomersController');
     Route::get('roles/{id}/permissions', 'RolesController@permissions');
     Route::post('roles/role_permissions', 'RolesController@rolePermissions');
+    Route::resource('notifications', 'NotificationsController');
     Route::resource('users', 'UsersController');
     Route::resource('roles', 'RolesController');
     Route::resource('modules', 'ModulesController');

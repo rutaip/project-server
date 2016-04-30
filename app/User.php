@@ -54,4 +54,10 @@ class User extends Authenticatable
 
         return !! $role->intersect($this->roles)->count();
     }
+
+    public function notifications()
+    {
+        return $this->belongsToMany(Notification::class);
+    }
+    
 }
