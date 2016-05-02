@@ -127,9 +127,9 @@ class OfferingsController extends Controller
 
         $offering->update($request->all());
 
-        $this->email('user_update_offering', $offering, 'Update');
-        $this->email('region_update_offering', $offering, 'Update');
-        $this->email('ww_update_offering', $offering, 'Update');
+        $this->email('user_update_offer', $offering, 'Update');
+        $this->email('region_update_offer', $offering, 'Update');
+        $this->email('ww_update_offer', $offering, 'Update');
 
         session()->flash('flash_message', 'Record successfully updated!');
         

@@ -51,9 +51,9 @@ class IntegrationsController extends Controller
         $project = Project::find($request['project_id']);
         
 
-        $this->email('user_new_comments', $project, 'Create');
-        $this->email('region_new_comments', $project, 'Create');
-        $this->email('ww_new_comments', $project, 'Create');
+        $this->email('user_new_integrations', $project, 'Create');
+        $this->email('region_new_integrations', $project, 'Create');
+        $this->email('ww_new_integrations', $project, 'Create');
 
         session()->flash('flash_message', 'Record successfully created!');
         return redirect('projects/'.$request->project_id);
