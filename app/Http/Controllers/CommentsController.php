@@ -7,7 +7,11 @@ use App\Comment;
 use App\Http\Requests;
 use App\Http\Requests\CommentRequest;
 use App\Http\Controllers\Controller;
+use App\Offering;
+use App\Project;
 use Gate;
+use Mail;
+use App\Notification;
 
 class CommentsController extends Controller
 {
@@ -45,14 +49,31 @@ class CommentsController extends Controller
             abort(403, 'Sorry, not allowed');
         }*/
 
+
         Comment::create($request->all());
 
+        if ($request->offering_id == '') {
+
+            $project = Project::find($request['project_id']);
+            $project->site='projects';
+        }
+        else {
+            $project = Offering::find($request['offering_id']);
+            $project->site='offerings';
+        }
+        
+
+        $this->email('user_new_comments', $request['comment_text'], $project, 'Create');
+        $this->email('region_new_comments', $request['comment_text'], $project, 'Create');
+        $this->email('ww_new_comments', $request['comment_text'], $project, 'Create');
+        
+        
         session()->flash('flash_message', 'Record successfully created!');
 
         if ($request->offering_id == '') {
 
             return redirect('projects/' . $request->project_id);
-        }
+        }        
 
         return redirect('offerings/' . $request->offering_id);
 
@@ -103,5 +124,22 @@ class CommentsController extends Controller
 
         session()->flash('flash_message', 'Record successfully deleted!');
         return redirect('comments');
+    }
+
+    private function email($tag, $comments, $project, $action){
+        $notifications=Notification::where('name', $tag)->with('users')->get();
+
+        $email= array();
+        foreach ($notifications as $notification){
+            foreach ($notification->users as $users){
+                $email[] = $users->email;
+            }
+        }
+
+        Mail::send('emails.comments', ['project' => $project, 'comments' => $comments, 'action' => $action], function ($m) use ($email, $project) {
+            $m->from('project@presenceco.com', 'Presence Project Server');
+
+            $m->bcc($email)->subject('New comments on ' . $project->project_name . ' - Presence Project Server');
+        });
     }
 }

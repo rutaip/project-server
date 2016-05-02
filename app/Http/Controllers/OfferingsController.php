@@ -13,6 +13,8 @@ use Gate;
 use Carbon\Carbon;
 use App\Invoice;
 use Countries;
+use App\Notification;
+use Mail;
 
 class OfferingsController extends Controller
 {
@@ -83,7 +85,12 @@ class OfferingsController extends Controller
 
             abort(403, 'Sorry, not allowed');
         }
-        Offering::create($request->all());
+        $offering = Offering::create($request->all());
+
+        $this->email('user_new_offering', $offering, 'Create');
+        $this->email('region_new_offering', $offering, 'Create');
+        $this->email('ww_new_offering', $offering, 'Create');
+
 
         session()->flash('flash_message', 'Record successfully created!');
 
@@ -119,6 +126,10 @@ class OfferingsController extends Controller
         }*/
 
         $offering->update($request->all());
+
+        $this->email('user_update_offering', $offering, 'Update');
+        $this->email('region_update_offering', $offering, 'Update');
+        $this->email('ww_update_offering', $offering, 'Update');
 
         session()->flash('flash_message', 'Record successfully updated!');
         
@@ -156,5 +167,22 @@ class OfferingsController extends Controller
         /* end filter query */
 
         return view('offerings.index', compact('offerings', 'region'));
+    }
+
+    private function email($tag, $offering, $action){
+        $notifications=Notification::where('name', $tag)->with('users')->get();
+
+        $email= array();
+        foreach ($notifications as $notification){
+            foreach ($notification->users as $users){
+                $email[] = $users->email;
+            }
+        }
+
+        Mail::send('emails.offering_update', ['project' => $offering, 'action' => $action], function ($m) use ($email, $offering, $action) {
+            $m->from('project@presenceco.com', 'Presence Project Server');
+
+            $m->bcc($email)->subject('Offering ' . $offering->project_name . ' '.$action . ' - Presence Project Server');
+        });
     }
 }

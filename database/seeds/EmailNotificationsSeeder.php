@@ -17,22 +17,22 @@ class EmailNotificationsSeeder extends Seeder
 
         $permissions = array(
             array('label' => 'New Project', 'name' => 'user_new_project'),              //1
-            array('label' => 'New Offering', 'name' => 'user_new_offering'),            //2
-            array('label' => 'Update Project', 'name' => 'user_update_project'),        //3
-            array('label' => 'Update Offer', 'name' => 'user_update_offer'),            //4
-            array('label' => 'Comments', 'name' => 'user_new_comments'),                //5
-            array('label' => 'Integrations', 'name' => 'user_new_integrations'),        //6
-            array('label' => 'Region New Project', 'name' => 'region_new_project'),              //7
-            array('label' => 'Region New Offering', 'name' => 'region_new_offering'),            //8
-            array('label' => 'Region Update Project', 'name' => 'region_update_project'),        //9
-            array('label' => 'Region Update Offer', 'name' => 'region_update_offer'),            //10
-            array('label' => 'Region Comments', 'name' => 'region_new_comments'),                //11
-            array('label' => 'Region Integrations', 'name' => 'region_new_integrations'),        //12
-            array('label' => 'WW New Project', 'name' => 'ww_new_project'),              //13
-            array('label' => 'WW New Offering', 'name' => 'ww_new_offering'),            //14
-            array('label' => 'WW Update Project', 'name' => 'ww_update_project'),        //15
-            array('label' => 'WW Update Offer', 'name' => 'ww_update_offer'),            //16
-            array('label' => 'WW Comments', 'name' => 'ww_new_comments'),                //17
+            array('label' => 'Region New Project', 'name' => 'region_new_project'),     //2
+            array('label' => 'WW New Project', 'name' => 'ww_new_project'),             //3
+            array('label' => 'Update Project', 'name' => 'user_update_project'),        //4
+            array('label' => 'Region Update Project', 'name' => 'region_update_project'),        //5
+            array('label' => 'WW Update Project', 'name' => 'ww_update_project'),        //6
+            array('label' => 'New Offering', 'name' => 'user_new_offering'),             //7
+            array('label' => 'Region New Offering', 'name' => 'region_new_offering'),    //8
+            array('label' => 'WW New Offering', 'name' => 'ww_new_offering'),            //9
+            array('label' => 'Update Offer', 'name' => 'user_update_offer'),             //10
+            array('label' => 'Region Update Offer', 'name' => 'region_update_offer'),            //11
+            array('label' => 'WW Update Offer', 'name' => 'ww_update_offer'),            //12
+            array('label' => 'Comments', 'name' => 'user_new_comments'),                //13
+            array('label' => 'Region Comments', 'name' => 'region_new_comments'),                //14
+            array('label' => 'WW Comments', 'name' => 'ww_new_comments'),                //15
+            array('label' => 'Integrations', 'name' => 'user_new_integrations'),        //16
+            array('label' => 'Region Integrations', 'name' => 'region_new_integrations'),        //17
             array('label' => 'WW Integrations', 'name' => 'ww_new_integrations'),        //18
         
         );

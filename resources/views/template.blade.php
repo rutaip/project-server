@@ -173,7 +173,6 @@
                     </div>
                     <div class="col-sm-6">
                         {!! Form::open(array('url' => 'notifications', 'id' => 'notifications')) !!}
-                        Route::post('post-index', 'HomeController@postIndex');
                         <table class="table table-bordered h6 text-center">
                             <caption>Email Notifications</caption>
                             <thead>
@@ -186,48 +185,52 @@
                             </thead>
                             <tbody>
 
+                            <?php $user_notification = array() ?>
+
                             @foreach($login->notifications as $notification)
 
-                                <td>{{ $notification->id }}</td>
+                                <td>{{ $user_notification[]=$notification->id }}</td>
 
                             @endforeach
+
+                            {{ $user_notification[0] }}
 
 
                             <tr>
                                     <th>New Project</th>
-                                    <td>{{ Form::radio('project_new', '1', ('' == '1')) }}</td>
-                                    <td>{{ Form::radio('project_new', '7', ('7' == '7')) }}</td>
-                                    <td>{{ Form::radio('project_new', '13',('' == '13')) }}</td>
+                                    <td>{{ Form::radio('project_new', '1', ($user_notification[0] == '1')) }}</td>
+                                    <td>{{ Form::radio('project_new', '2', ($user_notification[0] == '7')) }}</td>
+                                    <td>{{ Form::radio('project_new', '3',($user_notification[0] == '13')) }}</td>
                                 </tr>
                                 <tr>
                                     <th>Update Project</th>
-                                    <td>{{ Form::radio('project_update', '3') }}</td>
-                                    <td>{{ Form::radio('project_update', '9') }}</td>
-                                    <td>{{ Form::radio('project_update', '15') }}</td>
+                                    <td>{{ Form::radio('project_update', '4', ($user_notification[2] == '3')) }}</td>
+                                    <td>{{ Form::radio('project_update', '5', ($user_notification[2] == '9')) }}</td>
+                                    <td>{{ Form::radio('project_update', '6', ($user_notification[2] == '15')) }}</td>
                                 </tr>
                                 <tr>
                                     <th>New Offering</th>
-                                    <td>{{ Form::radio('offering_new', '2') }}</td>
-                                    <td>{{ Form::radio('offering_new', '8', true) }}</td>
-                                    <td>{{ Form::radio('offering_new', '14') }}</td>
+                                    <td>{{ Form::radio('offering_new', '7', ($user_notification[1] == '2')) }}</td>
+                                    <td>{{ Form::radio('offering_new', '8', ($user_notification[1] == '8')) }}</td>
+                                    <td>{{ Form::radio('offering_new', '9', ($user_notification[1] == '14')) }}</td>
                                 </tr>
                                 <tr>
                                     <th>Update offering</th>
-                                    <td>{{ Form::radio('offering_update', '4') }}</td>
-                                    <td>{{ Form::radio('offering_update', '10') }}</td>
-                                    <td>{{ Form::radio('offering_update', '16') }}</td>
+                                    <td>{{ Form::radio('offering_update', '10', ($user_notification[3] == '4')) }}</td>
+                                    <td>{{ Form::radio('offering_update', '11', ($user_notification[3] == '10')) }}</td>
+                                    <td>{{ Form::radio('offering_update', '12', ($user_notification[3] == '16')) }}</td>
                                 </tr>
                                 <tr>
                                     <th>New Comments</th>
-                                    <td>{{ Form::radio('comments', '5') }}</td>
-                                    <td>{{ Form::radio('comments', '11') }}</td>
-                                    <td>{{ Form::radio('comments', '17') }}</td>
+                                    <td>{{ Form::radio('comments', '13', ($user_notification[4] == '5')) }}</td>
+                                    <td>{{ Form::radio('comments', '14', ($user_notification[4] == '11')) }}</td>
+                                    <td>{{ Form::radio('comments', '15', ($user_notification[4] == '17')) }}</td>
                                 </tr>
                                 <tr>
                                     <th>New integration</th>
-                                    <td>{{ Form::radio('integration', '6') }}</td>
-                                    <td>{{ Form::radio('integration', '12') }}</td>
-                                    <td>{{ Form::radio('integration', '18') }}</td>
+                                    <td>{{ Form::radio('integration', '16', ($user_notification[5] == '6')) }}</td>
+                                    <td>{{ Form::radio('integration', '17', ($user_notification[5] == '12')) }}</td>
+                                    <td>{{ Form::radio('integration', '18', ($user_notification[5] == '18')) }}</td>
 
                                 </tr>
                             </tbody>
