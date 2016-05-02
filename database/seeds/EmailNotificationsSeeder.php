@@ -47,18 +47,6 @@ class EmailNotificationsSeeder extends Seeder
             array('notification_id' => '4', 'user_id' => '1'),
             array('notification_id' => '5', 'user_id' => '1'),
             array('notification_id' => '6', 'user_id' => '1'),
-            array('notification_id' => '7', 'user_id' => '1'),
-            array('notification_id' => '8', 'user_id' => '1'),
-            array('notification_id' => '9', 'user_id' => '1'),
-            array('notification_id' => '10', 'user_id' => '1'),
-            array('notification_id' => '11', 'user_id' => '1'),
-            array('notification_id' => '12', 'user_id' => '1'),
-            array('notification_id' => '13', 'user_id' => '1'),
-            array('notification_id' => '14', 'user_id' => '1'),
-            array('notification_id' => '15', 'user_id' => '1'),
-            array('notification_id' => '16', 'user_id' => '1'),
-            array('notification_id' => '17', 'user_id' => '1'),
-            array('notification_id' => '18', 'user_id' => '1'),
         );
         DB::table('notification_user')->insert($permission_role);
 
