@@ -53,12 +53,12 @@ class UsersController extends Controller
         }
 
         $notification=array();
-        $notification[]=7;
+        $notification[]=2;
+        $notification[]=5;
         $notification[]=8;
-        $notification[]=9;
-        $notification[]=10;
         $notification[]=11;
-        $notification[]=12;
+        $notification[]=14;
+        $notification[]=17;
 
        $user = User::create([
            'name' => $data['name'],
