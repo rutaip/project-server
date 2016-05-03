@@ -24,9 +24,8 @@ class NotificationsController extends Controller
         $notification[]=$request->comments;
         $notification[]=$request->integration;
 
-        $result = $user->notifications()->sync($notification);
+        $user->notifications()->sync($notification);
 
-        return $result;
 
         session()->flash('flash_message', 'Settings updated!');
 
