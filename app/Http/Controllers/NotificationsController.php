@@ -14,6 +14,8 @@ class NotificationsController extends Controller
     {
         $user=User::find(Auth::user()->id);
 
+
+
         $notification=array();
         $notification[]=$request->project_new;
         $notification[]=$request->project_update;
@@ -21,8 +23,10 @@ class NotificationsController extends Controller
         $notification[]=$request->offering_update;
         $notification[]=$request->comments;
         $notification[]=$request->integration;
-        
-        $user->notifications()->sync($notification);
+
+        $result = $user->notifications()->sync($notification);
+
+        return $result;
 
         session()->flash('flash_message', 'Settings updated!');
 

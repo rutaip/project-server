@@ -184,5 +184,7 @@ class OfferingsController extends Controller
 
             $m->bcc($email)->subject('Offering ' . $offering->project_name . ' '.$action . ' - Presence Project Server');
         });
+
+        reset($email);
     }
 }
