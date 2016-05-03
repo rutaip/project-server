@@ -118,7 +118,7 @@ class IntegrationsController extends Controller
         Mail::send('emails.integrations', ['project' => $project, 'action' => $action], function ($m) use ($email, $project) {
             $m->from('project@presenceco.com', 'Presence Project Server');
 
-            $m->bcc($email)->subject('New integration on ' . $project->project_name . ' - Presence Project Server');
+            $m->to($email)->subject('New integration on ' . $project->project_name . ' - Presence Project Server');
         });
     }
 }
