@@ -12,6 +12,8 @@ use App\Project;
 use Gate;
 use Mail;
 use App\Notification;
+use Auth;
+use App\User;
 
 class CommentsController extends Controller
 {
@@ -61,13 +63,47 @@ class CommentsController extends Controller
             $project = Offering::find($request['offering_id']);
             $project->site='offerings';
         }
-        
 
-        $this->email('user_new_comments', $request['comment_text'], $project, 'Create');
-        $this->email('region_new_comments', $request['comment_text'], $project, 'Create');
-        $this->email('ww_new_comments', $request['comment_text'], $project, 'Create');
-        
-        
+        //inicio de email
+
+        $email=array();
+        $logged_user = Auth::user();
+        $user_notification = User::with('notifications')->where('email', $logged_user->email) //notificacion new project user
+        ->whereHas('notifications', function($query) {
+            $query->where('name', 'user_new_comments');
+        })->first();
+
+        if($user_notification){
+            $email[]=$user_notification->email;
+        }
+
+        $region_notification=Notification::where('name', 'region_new_comments') //notificacion new project region
+        ->with('users')
+            ->whereHas('users', function($query) use ($project) {
+                $query->where('region_id', $project->region_id);
+            })
+            ->get();
+
+        foreach ($region_notification as $notification){
+            foreach ($notification->users as $users){
+                $email[] = $users->email;
+            }
+        }
+
+        $ww_notification=Notification::where('name', 'ww_new_comments') //notificaciones worldwide
+        ->with('users')->get();
+
+        foreach ($ww_notification as $notification){
+            foreach ($notification->users as $users){
+                $email[] = $users->email;
+            }
+        }
+
+
+        $this->email($email, $request['comment_text'], $project, 'Create'); //llama funcion de email
+
+        //fin de email
+
         session()->flash('flash_message', 'Record successfully created!');
 
         if ($request->offering_id == '') {
@@ -126,15 +162,8 @@ class CommentsController extends Controller
         return redirect('comments');
     }
 
-    private function email($tag, $comments, $project, $action){
-        $notifications=Notification::where('name', $tag)->with('users')->get();
+    private function email($email, $comments, $project, $action){
 
-        $email= array();
-        foreach ($notifications as $notification){
-            foreach ($notification->users as $users){
-                $email[] = $users->email;
-            }
-        }
 
         Mail::send('emails.comments', ['project' => $project, 'comments' => $comments, 'action' => $action], function ($m) use ($email, $project) {
             $m->from('project@presenceco.com', 'Presence Project Server');

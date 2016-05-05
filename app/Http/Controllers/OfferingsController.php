@@ -15,6 +15,7 @@ use App\Invoice;
 use Countries;
 use App\Notification;
 use Mail;
+use App\User;
 
 class OfferingsController extends Controller
 {
@@ -87,10 +88,44 @@ class OfferingsController extends Controller
         }
         $offering = Offering::create($request->all());
 
-        $this->email('user_new_offering', $offering, 'Create');
-        $this->email('region_new_offering', $offering, 'Create');
-        $this->email('ww_new_offering', $offering, 'Create');
+        //inicio de email
 
+        $email=array();
+        $logged_user = Auth::user();
+        $user_notification = User::with('notifications')->where('email', $logged_user->email) //notificacion new project user
+        ->whereHas('notifications', function($query) {
+            $query->where('name', 'user_new_offering');
+        })->first();
+
+        if($user_notification){
+            $email[]=$user_notification->email;
+        }
+
+        $region_notification=Notification::where('name', 'region_new_offering') //notificacion new project region
+        ->with('users')
+            ->whereHas('users', function($query) use ($offering) {
+                $query->where('region_id', $offering->region_id);
+            })
+            ->get();
+
+        foreach ($region_notification as $notification){
+            foreach ($notification->users as $users){
+                $email[] = $users->email;
+            }
+        }
+
+        $ww_notification=Notification::where('name', 'ww_new_offering') //notificaciones worldwide
+        ->with('users')->get();
+
+        foreach ($ww_notification as $notification){
+            foreach ($notification->users as $users){
+                $email[] = $users->email;
+            }
+        }
+
+        $this->email($email, $offering, 'Create'); //llama funcion de email
+
+        //fin de email
 
         session()->flash('flash_message', 'Record successfully created!');
 
@@ -127,9 +162,44 @@ class OfferingsController extends Controller
 
         $offering->update($request->all());
 
-        $this->email('user_update_offer', $offering, 'Update');
-        $this->email('region_update_offer', $offering, 'Update');
-        $this->email('ww_update_offer', $offering, 'Update');
+        //inicio de email
+
+        $email=array();
+        $logged_user = Auth::user();
+        $user_notification = User::with('notifications')->where('email', $logged_user->email) //notificacion new project user
+        ->whereHas('notifications', function($query) {
+            $query->where('name', 'user_update_offer');
+        })->first();
+
+        if($user_notification){
+            $email[]=$user_notification->email;
+        }
+
+        $region_notification=Notification::where('name', 'region_update_offer') //notificacion new project region
+        ->with('users')
+            ->whereHas('users', function($query) use ($offering) {
+                $query->where('region_id', $offering->region_id);
+            })
+            ->get();
+
+        foreach ($region_notification as $notification){
+            foreach ($notification->users as $users){
+                $email[] = $users->email;
+            }
+        }
+
+        $ww_notification=Notification::where('name', 'ww_update_offer') //notificaciones worldwide
+        ->with('users')->get();
+
+        foreach ($ww_notification as $notification){
+            foreach ($notification->users as $users){
+                $email[] = $users->email;
+            }
+        }
+
+        $this->email($email, $offering, 'Update'); //llama funcion de email
+
+        //fin de email
 
         session()->flash('flash_message', 'Record successfully updated!');
         
@@ -169,15 +239,8 @@ class OfferingsController extends Controller
         return view('offerings.index', compact('offerings', 'region'));
     }
 
-    private function email($tag, $offering, $action){
-        $notifications=Notification::where('name', $tag)->with('users')->get();
+    private function email($email, $offering, $action){
 
-        $email= array();
-        foreach ($notifications as $notification){
-            foreach ($notification->users as $users){
-                $email[] = $users->email;
-            }
-        }
 
         Mail::send('emails.offering_update', ['project' => $offering, 'action' => $action], function ($m) use ($email, $offering, $action) {
             $m->from('project@presenceco.com', 'Presence Project Server');

@@ -14,6 +14,7 @@ use Auth;
 use DB;
 use Gate;
 use Mail;
+use App\User;
 use Carbon\Carbon;
 use App\Invoice;
 use App\Task;
@@ -103,11 +104,46 @@ class ProjectsController extends Controller
         $invoice->agreement=0;
         $invoice->save();
 
-
         $this->newTasks($project);
-        $this->email('user_new_project', $project, 'Create');
-        $this->email('region_new_project', $project, 'Create');
-        $this->email('ww_new_project', $project, 'Create');
+
+        //inicio de email
+
+        $email=array();
+        $logged_user = Auth::user();
+        $user_notification = User::with('notifications')->where('email', $logged_user->email) //notificacion new project user
+        ->whereHas('notifications', function($query) {
+            $query->where('name', 'user_new_project');
+        })->first();
+
+        if($user_notification){
+            $email[]=$user_notification->email;
+        }
+
+        $region_notification=Notification::where('name', 'region_new_project') //notificacion new project region
+        ->with('users')
+            ->whereHas('users', function($query) use ($project) {
+                $query->where('region_id', $project->region_id);
+            })
+            ->get();
+
+        foreach ($region_notification as $notification){
+            foreach ($notification->users as $users){
+                $email[] = $users->email;
+            }
+        }
+
+        $ww_notification=Notification::where('name', 'ww_new_project') //notificaciones worldwide
+        ->with('users')->get();
+
+        foreach ($ww_notification as $notification){
+            foreach ($notification->users as $users){
+                $email[] = $users->email;
+            }
+        }
+
+        $this->email($email, $project, 'Create'); //llama funcion de email
+
+        //fin de email
 
         flash()->success('Record successfully created!');
 
@@ -138,18 +174,53 @@ class ProjectsController extends Controller
     {
         $project = Project::findOrFail($id);
 
-        /*if  (Gate::denies('edit', $role)) {
+        /*if  (Gate::denies('edit-project', $role)) {
 
             abort(403, 'Sorry, not allowed');
         }*/
 
         $project->update($request->all());
 
+        //inicio de email
+
+        $email=array();
+        $logged_user = Auth::user();
+        $user_notification = User::with('notifications')->where('email', $logged_user->email) //notificacion update project user
+            ->whereHas('notifications', function($query) {
+            $query->where('name', 'user_update_project');
+        })->first();
+
+        if($user_notification){
+            $email[]=$user_notification->email;
+        }
+
+        $region_notification=Notification::where('name', 'region_update_project') //notificacion update project region
+            ->with('users')
+            ->whereHas('users', function($query) use ($project) {
+                $query->where('region_id', $project->region_id);
+            })
+            ->get();
+
+        foreach ($region_notification as $notification){
+            foreach ($notification->users as $users){
+                $email[] = $users->email;
+            }
+        }
+
+        $ww_notification=Notification::where('name', 'ww_update_project') //notificaciones worldwide
+            ->with('users')->get();
+
+        foreach ($ww_notification as $notification){
+            foreach ($notification->users as $users){
+                $email[] = $users->email;
+            }
+        }
+
+        $this->email($email, $project, 'Update'); //llama funcion de email
+
+        //fin de email
+
         $this->syncTags($project, $request);
-        
-        $this->email('user_update_project', $project, 'Update');
-        $this->email('region_update_project', $project, 'Update');
-        $this->email('ww_update_project', $project, 'Update');
 
         session()->flash('flash_message', 'Record successfully updated!');
         
@@ -225,15 +296,8 @@ class ProjectsController extends Controller
         Task::create(['name' => 'End of project', 'project_id' => $project->id, 'completed' => '0', 'task_owner' => '1', 'parent_task' => $parent->id]);
     }
     
-    private function email($tag, $project, $action){
-        $notifications=Notification::where('name', $tag)->with('users')->get();
+    private function email($email, $project, $action){
 
-        $email= array();
-        foreach ($notifications as $notification){
-            foreach ($notification->users as $users){
-                $email[] = $users->email;
-            }
-        }
 
         Mail::send('emails.project_update', ['project' => $project, 'action' => $action], function ($m) use ($email, $project, $action) {
             $m->from('project@presenceco.com', 'Presence Project Server');
