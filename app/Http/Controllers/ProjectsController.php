@@ -64,8 +64,9 @@ class ProjectsController extends Controller
         $resources = Resource::orderBy('name', 'asc')->lists('name', 'id');
         $tasks = Task::where('project_id', $id)->orderBy('id', 'asc')->lists('name','id');
         $modules = DB::table('modules')->orderBy('id', 'asc')->lists('name','name');
+        $owners = User::select(DB::raw('concat (name," ",last) as full_name,id'))->orderBy('name', 'asc')->lists('full_name','id');
 
-        return view('projects.show',compact('project', 'comments_count', 'modules', 'resources', 'tasks', 'tasks_count', 'tasks_sum'));
+        return view('projects.show',compact('project', 'comments_count', 'modules', 'resources', 'tasks', 'tasks_count', 'tasks_sum', 'owners'));
     }
 
     public function create()
@@ -162,6 +163,7 @@ class ProjectsController extends Controller
 
         $project = Project::findOrFail($id);
 
+
         if (Gate::denies('edit-project', $project)){
 
             abort(403, 'Sorry, not allowed');
@@ -220,7 +222,11 @@ class ProjectsController extends Controller
 
         //fin de email
 
-        $this->syncTags($project, $request);
+        if(!empty($request->tags)){
+            $this->syncTags($project, $request);
+        }
+
+
 
         session()->flash('flash_message', 'Record successfully updated!');
         

@@ -150,6 +150,7 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         Webpatser\Countries\CountriesServiceProvider::class,
         Laracasts\Flash\FlashServiceProvider::class,
+        Barryvdh\Snappy\ServiceProvider::class,
 
 
 
@@ -160,6 +161,8 @@ return [
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+
+
 
 
     ],
@@ -211,7 +214,8 @@ return [
         'Html'      => Collective\Html\HtmlFacade::class,
         'Countries' => Webpatser\Countries\CountriesFacade::class,
         'Flash'     => Laracasts\Flash\Flash::class,
-
+        'PDF' => Barryvdh\Snappy\Facades\SnappyPdf::class,
+        'Image' => Barryvdh\Snappy\Facades\SnappyImage::class,
 
 
     ],

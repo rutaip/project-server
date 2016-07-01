@@ -36,6 +36,7 @@ Route::group(['middleware' => 'web'], function () {
     /*Ruta de paginas*/
 
     Route::get('/', 'DashboardsController@index');
+    Route::get ('pdf', 'PdfController@github');
 
     Route::post('search', 'SearchController@search');
     Route::get('search/{tag}', 'SearchController@show');
