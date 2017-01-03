@@ -75,7 +75,7 @@ class UsersController extends Controller
 
 
         Mail::send('emails.newuser', ['user' => $user, 'password' => $data['password']], function ($m) use ($user) {
-            $m->from('project@presenceco.com', 'Presence Project Server');
+            $m->from('project.presence@enghouse.com', 'Presence Project Server');
 
             $m->to($user->email, $user->name.' '.$user->last )->subject('Welcome Presence Project Server');
         });

@@ -166,7 +166,7 @@ class CommentsController extends Controller
 
 
         Mail::send('emails.comments', ['project' => $project, 'comments' => $comments, 'action' => $action], function ($m) use ($email, $project) {
-            $m->from('project@presenceco.com', 'Presence Project Server');
+            $m->from('project.presence@enghouse.com', 'Presence Project Server');
 
             $m->to($email)->subject('New comments on ' . $project->project_name . ' - Presence Project Server');
         });

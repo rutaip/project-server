@@ -301,7 +301,7 @@ class ProjectsController extends Controller
 
 
         Mail::send('emails.project_update', ['project' => $project, 'action' => $action], function ($m) use ($email, $project, $action) {
-            $m->from('project@presenceco.com', 'Presence Project Server');
+            $m->from('project.presence@enghouse.com', 'Presence Project Server');
 
             $m->to($email)->subject('Project ' . $project->project_name . ' '.$action . ' - Presence Project Server');
         });
