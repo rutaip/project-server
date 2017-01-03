@@ -56,9 +56,11 @@ class OfferingsController extends Controller
         $offering = Offering::findOrFail($id);
         $comments_count = Comment::where('offering_id', $id)->count();
         $modules = DB::table('modules')->orderBy('id', 'asc')->lists('name','name');
+        $owners = User::select(DB::raw('concat (name," ",last) as full_name,id'))->orderBy('name', 'asc')->lists('full_name','id');
 
 
-        return view('offerings.show',compact('offering', 'comments_count', 'modules'));
+
+        return view('offerings.show',compact('offering', 'comments_count', 'modules', 'owners'));
     }
 
     public function create()
