@@ -1,3 +1,30 @@
+<!-- Modal -->
+<div class="modal fade" id="change_owner" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Project Owner</h4>
+            </div>
+            <div class="modal-body">
+                {!! Form::model($offering, ['method' => 'PATCH', 'action' => ['OfferingsController@update', $offering->id]]) !!}
+                <div class="form-group">
+                    <div class="col-md-6">
+                        {!! Form::select('user_id', $owners, old('user_id'),['class' => 'form-control', 'required' => 'required']) !!}
+                    </div>
+                </div>
+                <br>
+                <br>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                {!! Form::submit('Update', ['class' => 'btn btn-primary']) !!}
+                {!! Form::close() !!}
+            </div>
+        </div>
+    </div>
+</div>
+
 <br>
 <div class="row">
     <div class="col-md-6">
@@ -24,6 +51,11 @@
             @can('edit-offering', $offering)
             <a href="../offerings/{{ $offering->id }}/edit" class="btn btn-default btn-block">Update</a>
             @endcan
+                @can('admin', $offering)
+                    <button class="btn btn-default btn-block" type="button" data-toggle="modal" data-target="#change_owner">
+                        Change Owner
+                    </button>
+                @endcan
         </div>
     </div>
 </div>
