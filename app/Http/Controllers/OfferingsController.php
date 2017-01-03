@@ -212,12 +212,7 @@ class OfferingsController extends Controller
         $region = DB::table('regions')->orderBy('id', 'asc')->lists('region','id');
 
 
-        $offerings = Offering::where('created_at', '>=', Carbon::now()->startOfYear());
-
-
-        /*filters form*/
-
-        $offerings->where(function($query) use ($request){
+        $offerings = Offering::where(function($query) use ($request){
 
             foreach ($request->region_id as $regions) {
                 $query->orWhere('region_id', 'LIKE', '%'.$regions.'%');

@@ -239,12 +239,7 @@ class ProjectsController extends Controller
         $region = DB::table('regions')->orderBy('id', 'asc')->lists('region','id');
 
 
-        $projects = Project::where('created_at', '>=', Carbon::now()->startOfYear());
-
-
-        /*filters form*/
-
-        $projects->where(function($query) use ($request){
+        $projects = Project::where(function($query) use ($request){
 
             foreach ($request->region_id as $regions) {
                 $query->orWhere('region_id', 'LIKE', '%'.$regions.'%');
