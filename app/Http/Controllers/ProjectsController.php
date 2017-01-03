@@ -40,8 +40,8 @@ class ProjectsController extends Controller
         $region = DB::table('regions')->orderBy('id', 'asc')->lists('region','id');
 
 
-        $projects = Project::where('master_status', '=', 'Working' )
-            ->where('created_at', '>=', Carbon::now()->startOfYear());
+        $projects = Project::where('master_status', '=', 'Working' );
+            //->where('created_at', '>=', Carbon::now()->startOfYear());
 
         if  (Gate::denies('worldwide')) {
 

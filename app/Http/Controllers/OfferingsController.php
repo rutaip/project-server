@@ -36,8 +36,8 @@ class OfferingsController extends Controller
         $region = DB::table('regions')->orderBy('id', 'asc')->lists('region','id');
 
 
-        $offerings = Offering::where('master_status', '=', 'offering' )
-            ->where('created_at', '>=', Carbon::now()->startOfYear());
+        $offerings = Offering::where('master_status', '=', 'offering' );
+            //->where('created_at', '>=', Carbon::now()->startOfYear());
 
         if  (Gate::denies('worldwide')) {
 
