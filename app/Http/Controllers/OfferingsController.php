@@ -240,7 +240,7 @@ class OfferingsController extends Controller
 
 
         Mail::send('emails.offering_update', ['project' => $offering, 'action' => $action], function ($m) use ($email, $offering, $action) {
-            $m->from('project@presenceco.com', 'Presence Project Server');
+            $m->from('project.presence@enghouse.com', 'Presence Project Server');
 
             $m->to($email)->subject('Offering ' . $offering->project_name . ' '.$action . ' - Presence Project Server');
         });
